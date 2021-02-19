@@ -1,0 +1,703 @@
+@font-face{font-family:"SegoeUI";
+src:url("../fonts/Regular/segoeui.eot");
+src:url("../fonts/Regular/segoeui.eot?#iefix") format('embeddedopentype'),
+url("../fonts/Regular/segoeui.woff2") format("woff2"),
+url("../fonts/Regular/SegoeUI.woff") format("woff"),
+url("../fonts/Regular/segoeui.ttf") format("truetype"),
+url("../fonts/Regular/SegoeUI.otf") format("opentype"),
+url("../fonts/Regular/SegoeUI.svg#svgSegoeUI") format("svg");
+font-style:normal;
+font-weight:normal;
+font-display: swap;
+}
+
+@font-face{font-family:"SegoeUI Light";
+src:url("../fonts/Light/segoeuilight.eot");
+src:url("../fonts/Light/segoeuilight.eot?#iefix") format('embeddedopentype'),
+url("../fonts/Light/segoeuilight.woff2") format("woff2"),
+url("../fonts/Light/SegoeUI-Light.woff") format("woff"),
+url("../fonts/Light/segoeuilight.ttf") format("truetype"),
+url("../fonts/Light/SegoeUI-Light.otf") format("opentype"),
+url("../fonts/Light/SegoeUI-Light.svg#svgSegoeUI-Light") format("svg");
+font-style:normal;
+font-weight:normal;
+font-display: swap;
+}
+
+@font-face{font-family:"SegoeUI Semibold";
+src:url("../fonts/SemiBold/seguisemi.eot");
+src:url("../fonts/SemiBold/seguisemi.eot?#iefix") format('embeddedopentype'),
+url("../fonts/SemiBold/seguisemi.woff2") format("woff2"),
+url("../fonts/SemiBold/SegoeUI-Semibold.woff") format("woff"),
+url("../fonts/SemiBold/seguisemi.ttf") format("truetype"),
+url("../fonts/SemiBold/SegoeUI-Semibold.otf") format("opentype"),
+url("../fonts/SemiBold/SegoeUI-Semibold.svg#svgSegoeUI-Semibold") format("svg");
+font-style:normal;
+font-weight:normal;
+font-display: swap;
+}
+
+
+@font-face{font-family:"Stroke";
+src:url("../fonts/stroke/Pe-icon-7-stroke.eot");
+src:url("../fonts/stroke/Pe-icon-7-stroke.eot?#iefix") format('embeddedopentype'),
+url("../fonts/stroke/Pe-icon-7-stroke.woff2") format("woff2"),
+url("../fonts/stroke/Pe-icon-7-stroke.woff") format("woff"),
+url("../fonts/stroke/Pe-icon-7-stroke.ttf") format("truetype"),
+url("../fonts/stroke/Pe-icon-7-stroke.otf") format("opentype"),
+url("../fonts/stroke/Pe-icon-7-stroke.otf.svg#svgPe-icon-7-stroke.otf") format("svg");
+font-style:normal;
+font-weight:bold;
+font-display: swap;
+}
+p{
+margin: 0;
+padding: 0;
+}
+.pe-7s-album,
+.pe-7s-arc{
+color: #fff;	
+font-family: 'Stroke';
+font-size: 130px;
+}
+html, body{
+padding: 0;	
+/*overflow: hidden;*/
+-ms-touch-action: none;
+touch-action: none;
+}
+html{
+background-image: url('../img/background_game.jpg');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+/*height: 100vh;*/
+}
+.container{
+width: 90vw;
+margin:auto;
+max-width: 1920px;
+position: relative;
+/*min-height: 100vh;*/
+}
+.col-md-4{
+float: left;
+width: 33.33333333%;
+}
+.col-md-8 {
+float: left;	
+width: 66.66666667%;
+}
+
+.col-md-6 {
+width: 50%;
+float: left;
+}
+
+
+.col-md-12{
+width: 100%;
+height: 60vh;
+}
+.tutorial_page{
+background-color: #a0d8e7;
+position: absolute;
+padding: 0;
+padding-top: 30px;
+padding-bottom: 30px;
+z-index: 10;
+top: 0;
+right: 0;
+left:0;
+margin: 0 auto;	
+display: none;
+height: 100vh;
+background-image: url('../img/background_tutorial.jpg');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+width: 95vw;
+height: 84vh;
+-webkit-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+-moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+border: 2px solid #00a6d5;
+margin-top: 3vh;
+}
+#tutorial_show{
+display: none;
+display: block;
+}
+.top_blocks{
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+margin: 0 auto;
+z-index: 1;	
+}
+.game_button{
+display: inline-block;
+box-sizing: border-box;
+color: #fff;
+background-color: transparent;
+color: #fff;
+border: 2px solid #fff;
+font-size: 30px;
+width: 310px;
+height: 70px;
+line-height: 60px;
+border-radius: 35px;
+font-family: "SegoeUI";
+outline: none;
+cursor: pointer;
+-webkit-transition: all 0.8s ease-out;
+-o-transition: all 0.8s ease-out;
+transition: all 0.8s ease-out;
+-webkit-box-shadow: 0px 0px 18px 99px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+-moz-box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset,  0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+-webkit-tap-highlight-color: transparent;
+}
+.game_button:hover{
+opacity: 0.6;
+}
+.game_button.grey{
+background-color: transparent;
+float: left;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+.game_button.grey.active {
+opacity: 1;
+border: 3px solid #fff;
+color: #fff;
+-webkit-box-shadow: 0px 0px 18px 99px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+-moz-box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset,  0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+}
+#back_move{
+cursor: not-allowed;
+opacity: 0.3;
+position: absolute;
+bottom: 30px;
+left: 0;
+
+}
+#back_move.game_button.grey.active{
+cursor: pointer;
+opacity: 1;
+}
+.game_button.blue{
+border: 2px solid #fff;
+color: #fff;	
+}
+.game_button.blue.disabled{
+cursor: not-allowed;
+opacity: .3;
+border: 3px solid fff;
+}
+.image_tutorial{
+display: block;
+margin: 0 auto;
+max-width: 100%;
+margin-top: 30px;
+margin-bottom: 30px;
+}
+#information{
+background-color: transparent;
+color: #fff;
+border: 2px solid #fff;
+font-size: 30px;
+width: 310px;
+height: 70px;
+border-radius: 35px;
+font-family:"SegoeUI";
+position: absolute;
+right: 0;
+bottom: 30px;
+}
+.button_block{
+text-align: right;
+}
+.button_block.tutorial{
+text-align: center;	
+}
+
+p.tutorial_text{
+margin-bottom: 30px;
+font-family:"SegoeUI";
+font-size: 26px;
+text-align: left;
+line-height: 29px;
+color: #fff;
+margin-top: 0;
+}
+p.tutorial_title_text{
+margin-bottom: 50px;
+font-family:"SegoeUI Light";
+font-size: 68px;
+text-align: left;
+line-height: 1.23;
+color: #fff;
+margin-top: 0;	
+text-transform: uppercase;
+}
+
+
+
+
+
+.tutorial_section
+{
+padding: 0;
+display: none;
+}
+#close{
+text-align: right;
+font-size: 36px;
+font-family:"SegoeUI Light";
+color: #fff;
+cursor: pointer;
+position: absolute;
+top: 0;
+right: 0;
+z-index: 23;
+}
+.pe-7s-close.tutorial_close{
+-webkit-transition: all 0.8s linear;
+-o-transition: all 0.8s linear;
+transition: all 0.8s linear;
+font-size: 60px;
+}
+.pe-7s-close.tutorial_close:hover {
+opacity: 0.7;	
+}
+.tutorial_section.active{
+display: block;
+}
+#to_level{
+display: none;
+}
+.white_quant{
+/*background-color: #fff;*/
+background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(145,145,145,1) 50%, rgba(34,34,34,1) 100%);
+margin: 20px;
+border: 2px solid #333;
+}
+.black_quant{
+background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,189,238,1) 50%, rgba(2,63,132,1) 100%);
+margin: 20px;
+border:solid 2px #333;
+/*черный был*/
+}
+.sup_quant{
+/*Супер была серая*/
+background-color: transparent;
+margin: 20px;
+border: 2px solid #fff;
+}
+.black_quant.mini, 
+.sup_quant.mini,
+.white_quant.mini{
+width: 25px;
+height: 25px;
+margin: 8px;
+border-radius: 50%;
+}
+.quants{
+width: 90px;
+height: 90px;
+border-radius: 50%;
+}
+
+.note_text{
+margin-bottom: 10px;
+font-family: "SegoeUI Light";
+font-size: 18px;
+text-align: left;
+color: #fff;
+margin:0;   
+}
+
+#notification_table{
+position: absolute;
+top: 55%;
+right: 24%;
+}
+.info_quants{
+width: 20px;
+height: 20px;
+border-radius: 50%;
+margin: 10px;
+}
+
+
+.interactive>.quants,
+.static_table>.quants{
+width: 90px;
+height: 90px;
+}
+.blue{
+color: #4f81bd;
+}
+.game_stat{
+color: #fff;
+font-size: 38px;
+/*font-size: 42px;*/
+font-family:"SegoeUI Light";
+text-align: right;
+display: inline-block;
+width: 49%;
+line-height: 42px;
+padding-right: 7%;
+box-sizing: border-box;
+margin-bottom: 20px;
+margin-top: 30px;
+}
+.stat_block>.game_stat.moves{
+margin-bottom: 20px;
+margin-top: 30px;	
+color: #fff;
+/*font-size: 42px;*/
+font-size: 38px;
+font-family:"SegoeUI Light";	
+display: inline-block;
+width: 49%;
+text-align: left;
+padding-left: 7%;
+box-sizing: border-box;
+line-height: 42px;
+}
+.stat_block{
+margin-bottom: 0;
+border-bottom: 2px solid #fff;
+width: 100%;
+}
+#box{
+padding-top: 10vh;
+align-items: center;
+position: relative;
+z-index: 2;	
+}
+table#game_field, table#game_target{
+text-align: center;	
+}
+table#game_field{
+margin-top:0;	
+margin: auto;
+}
+table#game_target{
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+display: inline-block;
+margin-top: 20vh;
+background-color: rgba(255,255,255, 0.2);
+}
+td {				
+text-align:center;			
+vertical-align: middle;				
+}
+#box td {
+border:solid 2px #000;
+border-radius: 7px;
+text-align:center;
+-webkit-transition: all 0.7s ease-out;
+-o-transition: all 0.7s ease-out;
+transition: all 0.7s ease-out;
+background-color: rgba(255,255,255, 0.2); 
+}
+#box td:hover {
+opacity: 0.8;
+cursor: pointer;
+}
+#box td:focus{
+background-color: transparent;
+}
+#box td.active{
+background-color: rgba(255,255,255, 0.4);
+-webkit-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
+-moz-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
+border:solid 2px #00a6d5;
+}
+
+.interactive,
+.static_table{
+background-color: rgba(255,255,255, 0.2);
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+.interactive.active{
+background-color: rgba(255,255,255, 0.4);
+-webkit-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
+-moz-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);	
+}
+#solution td {
+text-align:center;
+}
+#solution{
+display: inline-block;
+margin-bottom: 20px;
+}
+#notification_message{
+text-align: center;
+font-size:30px;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+#notification_modal{
+position: fixed;
+top: 20%;
+left: 0;
+right:0;
+margin: 0 auto;
+padding: 50px 30px;
+background-color: #011027;
+-webkit-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+-moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+max-width: 960px;
+display: none;
+z-index: 15;
+text-align: center;
+border: 2px solid #00a6d5;
+}
+#close_modal{
+text-align: right;
+font-size: 50px;
+color: #fff;
+cursor: pointer;
+position: absolute;
+top: 0;
+right: 0;
+z-index: 22;
+}
+#overlay{
+background-color: rgba(0,0,0,0.6);
+height: 100vh;
+width: 100vw;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 4;
+padding: 0;
+margin: 0;
+display: none;
+}
+.gatter_block{
+text-align: center;
+margin-top: 30px;
+}
+.gatter_block_title{
+color: #fff;
+/*font-size: 42px;*/
+font-size: 38px;
+font-family:"SegoeUI Light";
+margin-bottom: 10px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.target_pattern{
+color: #fff;
+font-size: 42px;
+font-family:"SegoeUI Light";
+margin-bottom: 30px;
+}
+.back_icon{
+display: inline-block;
+max-height: 30px;
+}
+.game_gatter{
+
+    -webkit-box-shadow: 0px 0px 18px 99px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
+    -moz-box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+    box-shadow: 0px 0px 18px 18px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
+    -webkit-tap-highlight-color: transparent;
+color: #fff;
+border: 2px solid #fff;
+border-radius: 7px;
+font-family:"SegoeUI Semibold";
+padding: 0 30px;
+cursor: pointer;
+-webkit-transition: all 1.2s ease-out;
+-o-transition: all 1.2s ease-out;
+transition: all 1.2s ease-out;
+outline: none;
+display: inline-block;
+background-color: transparent;
+}
+.game_gatter.active{
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+background-color: #fff;
+color: #000;
+opacity: 1;  
+}
+.game_gatter>span{
+font-size: 42px;
+}
+.game_gatter>span.gatter_word{
+font-size: 26px;
+}
+.game_gatter:hover{
+opacity: 0.9;
+}
+.game_gatter.active:hover{
+opacity: 0.8;
+}
+#go_modal, #modal_buttons{
+display: none;	
+}
+#modal_buttons{
+text-align: center;
+margin-top: 30px;
+margin-bottom: 30px;
+}
+#go_modal{
+margin: 0 auto;
+margin-top: 30px;
+margin-bottom: 30px;
+}
+#h_gatter1, #h_gatter2, #swap_gatter, #snot_gatter{
+display: none;
+} 
+#finish{
+position: absolute;
+background-color: #011027;
+-webkit-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+-moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+display: none;
+z-index: 15;
+text-align: center;
+border: 2px solid #00a6d5;
+color: #fff;
+width: 95vw;
+height: 85vh;
+max-height: 800px;
+z-index: 12;
+top: 50px;
+bottom: 0;
+left: 0;
+right: 0;
+margin: 0 auto;
+padding-top: 200px;
+display: none;
+box-sizing: border-box;
+}
+
+p.final_text,
+.final_text_congratulation {
+font-family: "SegoeUI Light";
+font-size: 60px;
+text-align: center;
+color: #fff;
+margin-top: 0;  
+}
+
+
+
+.quant_field{
+min-height: 100vh;
+padding: 0;
+}
+@media (max-width: 768px) {
+.top_blocks{
+position: relative;
+}
+.sup_quant, .white_quant,
+.black_quant {
+width: 40px;
+height: 40px;
+margin: 15px;
+}
+.game_gatter {
+font-size: 18px;
+padding: 20px 10px;
+margin-bottom: 20px;
+}
+#box {
+padding-top: 40px;
+}
+#close {
+font-size: 32px;
+top: -15px;
+right: 0px;
+}
+.game_button{
+margin-bottom: 20px;
+}
+.game_stat,
+.stat_block>.game_stat.moves,
+.target_pattern,
+.gatter_block_title{
+font-size: 18px;
+}
+#notification_modal {
+padding: 30px 15px;
+
+max-width: 95%;
+z-index: 7;
+
+}
+#notification_message {
+	padding-top: 220px;
+text-align: center;
+font-size: 25px;
+margin-top: 16px;
+margin-bottom: 16px;
+}
+.game_button {
+font-size: 18px;
+padding: 10px 20px;
+}
+.game_gatter {
+font-size: 18px;
+padding: 20px 16px;
+}
+p.tutorial_title_text {
+margin-bottom: 30px;
+font-size: 24px;
+text-align: center;
+line-height: 1;
+}
+p.tutorial_text {
+margin-bottom: 30px;
+font-size: 19px;
+line-height: 24px;
+}
+}
+.pe-7s-close:before {
+	content: "\e680";
+	font-size: 130px;
+}
+
+.pe-7s-help1:before {
+    content: "\e64a";
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.tutorial_title_text.small{
+text-transform: none;
+text-align: center;
+}
+
+
+.tutorial_table, 
+.interactive_table{
+border-collapse:  collapse;
+margin: 0 auto;
+}
+

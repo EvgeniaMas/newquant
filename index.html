@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+<meta name="format-detection" content="telephone=no">
+<link rel="shortcut icon" type="image/x-icon" href="img/icon.jpg" />
+<title>Quantum-das-spiel</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/pe-icon-7-stroke.css">
+<link rel="stylesheet" type="text/css" href="css/helper.css">
+</head>
+<div id="overlay">
+</div>
+	<body class="quant_field">
+
+
+            <table id="notification_table">
+		       <tbody>
+		       	<tr>
+		        <td class="info_cells"><div class="info_quants white_quant"></div></td>
+		         <td><p  class="note_text">Zustand 0</p></td>
+		       	</tr>
+		      <tr>
+		        <td class="info_cells"><div class="info_quants black_quant"></div></td>
+		        <td><p  class="note_text">Zustand 1</p></td>
+		       	</tr>
+		       	<tr>
+		        <td class="info_cells"><div class="info_quants sup_quant"></div></td>
+		        <td><p  class="note_text">Superposition</p></td>
+		       	</tr>
+		     
+		       </tbody>
+		     </table>
+
+
+
+
+<!-- <ul class="nav nav-pills nav-stacked">
+  <li class="active"><a href="#"><i class="pe-7s-help1"></i> Home</a></li>
+  <li class="active"><a href="#"><i class="pe-7s-close"></i> Library</a></li>
+  <li class="active"><a href="#"><i class="pe-7s-refresh pe-flip-horizontal"></i> Applications</a></li>
+  <li class="active"><a href="#"><i class="pe-7s-left-arrow"></i> Settings</a></li>
+</ul> <img class="tutorial_close" src="img/close.png" alt="game">-->
+<!-- tutorial -->
+
+ <!-- tutorial -->
+		<div class="tutorial_page" id ="tutorial_show">
+		<div id="close"><i class="pe-7s-close tutorial_close"></i></div>
+			<div class="container">
+			
+			<div class="tutorial_block1 tutorial_section active">
+			 <p class="tutorial_title_text">TUTORIAL</p>
+			  <div class="col-md-12">
+				<div class="col-md-6">
+					<table class="tutorial_table">
+						<tbody>
+						<tr>
+						<td class="static_table"><div class="quants black_quant"></div></td>
+						<td class="static_table"><div class="quants sup_quant"></div></td>						
+						<td class="static_table"><div class="quants sup_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="static_table"><div class="quants white_quant"></div></td>
+						<td class="static_table"><div class="quants black_quant"></div></td>
+						<td class="static_table"><div class="quants black_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="static_table"><div class="quants white_quant"></div></td>
+						<td class="static_table"><div class="quants sup_quant"></div></td>
+						<td class="static_table"><div class="quants sup_quant"></div></td>
+						</tr>
+						</tbody>
+					</table>
+			     </div>
+			    <div class="col-md-6">
+                  <p  class="tutorial_text">Du wirst spielerisch lernen, welche Quantengatter es gibt und wie sie funktionieren<br><br> 9 Qubits, die in einem Quadrat angeordnet sind<br><br>
+                  Zustände der Qubits werden durch die unterschiedlichen Kreise dargestellt</p>
+                 </div>
+			    </div>
+			    
+			</div>
+		    <div class="tutorial_block1 tutorial_section">
+		       <p class="tutorial_title_text">TUTORIAL</p>
+		       <div class="col-md-12">
+			    <p  class="tutorial_text"> Медленное появление элементов</p> 
+			    </div>
+			</div>
+			<div class="tutorial_block1 tutorial_section">  
+			<p class="tutorial_title_text">TUTORIAL</p> 
+             <div class="col-md-12">
+				<div class="col-md-6" id ="container_first">
+					<table id="train_first" class="interactive_table">
+						<tbody>
+						<tr>
+						<td class="quibits_first interactive" id="0 0_first"><div class="quants black_quant"></div></td>
+						<td class="quibits_first interactive" id="0 1_first"><div class="quants sup_quant"></div></td>
+						<td class="quibits_first interactive" id="0 2_first"><div class="quants sup_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_first interactive" id="1 0_first"><div class="quants white_quant"></div></td>
+						<td class="quibits_first interactive" id="1 1_first"><div class="quants black_quant"></div></td>
+						<td class="quibits_first interactive" id="1 2_first"><div class="quants black_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_first interactive" id="2 0_first"><div class="quants white_quant"></div></td>
+						<td class="quibits_first interactive" id="2 1_first"><div class="quants sup_quant"></div></td>
+						<td class="quibits_first interactive" id="2 2_first"><div class="quants sup_quant"></div></td>
+						</tr>
+						</tbody>
+					</table>
+					<button class="game_gatter" id="x_gatter_interactive"><span class="gatter_symbol">X</span> <br> gatter</button>
+			     </div>
+			    <div class="col-md-6">
+                  <p  class="tutorial_text">
+                  	Los geht’s!<br><br>
+					Nun lernst du das erste Quantengatter kennen!<br> Das X-Gatter kehrt den Zustand eines einzelnen Qubits um, das heißt aus Zustand 0 wird 1 und umgekehrt, und bei der Superposition kehren sich die Wahrscheinlichkeiten um (für unseren Fall irrelevant)
+					<br><br>
+					Bei unserem Spiel wird das X-Gatter aber (damit es spannender wird) gleich auf die gesamte Zeile oder Spalte angewandt.<br><br>
+					Probiere die Funktionsweise mal aus: Klicke hier auf das X-Gatter und wische über die Zeile oder Spalte, um das Ergebnis zu sehen.</p>
+                 </div>
+			    </div>
+			</div>
+			<div class="tutorial_block2 tutorial_section">
+				<p class="tutorial_title_text">TUTORIAL</p>
+				<div class="col-md-12">
+				   <div class="col-md-6" id ="container_second">
+					<table id="train_second" class="interactive_table">
+						<tbody>
+						<tr>
+						<td class="quibits_second interactive" id="0 0_second"><div class="quants black_quant"></div></td>
+						<td class="quibits_second interactive" id="0 1_second"><div class="quants sup_quant"></div></td>
+						<td class="quibits_second interactive" id="0 2_second"><div class="quants sup_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_second interactive" id="1 0_second"><div class="quants white_quant"></div></td>
+						<td class="quibits_second interactive" id="1 1_second"><div class="quants black_quant"></div></td>
+						<td class="quibits_second interactive" id="1 2_second"><div class="quants black_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_second interactive" id="2 0_second"><div class="quants white_quant"></div></td>
+						<td class="quibits_second interactive" id="2 1_second"><div class="quants sup_quant"></div></td>
+						<td class="quibits_second interactive" id="2 2_second"><div class="quants sup_quant"></div></td>
+						</tr>
+						</tbody>
+						</table>
+
+						 <button class="game_gatter" id="h_gatter1_interactive"><span class="gatter_symbol">H0</span><br>Gatter</button>	
+				         <button class="game_gatter" id="h_gatter2_interactive"><span class="gatter_symbol">H1</span><br>Gatter</button>		
+				     </div>
+			    <div class="col-md-6">
+
+			   <!--  	старый текст -->
+                  <p  class="tutorial_text">Super, das klappt doch schon ganz gut!<br><br>
+				Jetzt darfst du das nächste Quantengatter erforschen und zwar das H-Gatter. 
+				Das H-Gatter wirkt wieder auf ein einzelnes Qubit, indem aus den Zuständen 0 und 1 die Superposition erzeugt wird. <br><br>
+				Wird das H-Gatter auf eine Superposition angewandt, so kann der Zustand 0 entstehen (H0-Gatter) oder der Zustand 1 (H1-Gatter).<br><br>
+				Bei unserem Spiel wird das H-Gatter ebenfalls gleich auf die gesamte Zeile oder Spalte angewandt.</p>
+                 </div>
+			    </div>
+			</div>
+
+
+			<!-- <div class="tutorial_block2 tutorial_section">
+				<p class="tutorial_title_text">TUTORIAL</p>
+			    <p  class="tutorial_text">Probiere die Funktionsweise mal aus: Klicke hier auf das H0-oder H1-Gatter und 
+               wische über eine Zeile oder Spalte, um das Ergebnis zu sehen.</p>
+			    <img class="image_tutorial" src="img/tutorial/part2/1.png" alt="Tutorial">
+			    <p  class="tutorial_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button 
+               „Zu Level 3“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, 
+               kannst du das Level 3 starten.</p>   
+			</div> -->
+
+
+
+
+			<div class="tutorial_block3 tutorial_section">
+				<p class="tutorial_title_text">TUTORIAL</p>
+				<div class="col-md-12">
+				<div class="col-md-6" id ="container_third">
+					<table id="train_third" class="interactive_table">
+						<tbody>
+						<tr>
+						<td class="quibits_third interactive" id="0 0_third"><div class="quants black_quant"></div></td>
+						<td class="quibits_third interactive" id="0 1_third"><div class="quants sup_quant"></div></td>
+						<td class="quibits_third interactive" id="0 2_third"><div class="quants sup_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_third interactive" id="1 0_third"><div class="quants white_quant"></div></td>
+						<td class="quibits_third interactive" id="1 1_third"><div class="quants black_quant"></div></td>
+						<td class="quibits_third interactive" id="1 2_third"><div class="quants black_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_third interactive" id="2 0_third"><div class="quants white_quant"></div></td>
+						<td class="quibits_third interactive" id="2 1_third"><div class="quants sup_quant"></div></td>
+						<td class="quibits_third interactive" id="2 2_third"><div class="quants sup_quant"></div></td>
+						</tr>
+						</tbody>
+						</table>						
+				         
+				         <button class="game_gatter" id="swap_gatter_interactive"><span class="gatter_symbol">SWAP</span><br>gatter</button>
+				         
+
+			     </div>
+			    <div class="col-md-6">
+
+			   <!--  	старый текст -->
+                  <p  class="tutorial_text"> нет пока текста</p>
+                 </div>
+			    </div>  
+			</div>
+		  <div class="tutorial_block3 tutorial_section">
+				<p class="tutorial_title_text">TUTORIAL</p>
+			    <p  class="tutorial_text">Probiere die Funktionsweise mal aus: Klicke hier auf „SWAP“ und anschließend auf 2 Qubitsnacheinander.</p>
+			    <img class="image_tutorial" src="img/tutorial/part3/1.png" alt="Tutorial"> 
+			    <p  class="tutorial_text">Du siehst: die Zustände der beiden Qubitswurden untereinander vertauscht.<br><br>
+			     Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 5“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du 
+                das Level 5 starten.</p>
+			</div>
+
+
+			<div class="tutorial_block4 tutorial_section">
+				<p class="tutorial_title_text">TUTORIAL</p>
+				<div class="col-md-12">
+				   <div class="col-md-6" id ="container_four">
+					<table id="train_four" class="interactive_table">
+						<tbody>
+						<tr>
+						<td class="quibits_four interactive" id="0 0_four"><div class="quants sup_quant"></div></td>
+						<td class="quibits_four interactive" id="0 1_four"><div class="quants black_quant"></div></td>
+						<td class="quibits_four interactive" id="0 2_four"><div class="quants white_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_four interactive" id="1 0_four"><div class="quants white_quant"></div></td>
+						<td class="quibits_four interactive" id="1 1_four"><div class="quants white_quant"></div></td>
+						<td class="quibits_four interactive" id="1 2_four"><div class="quants black_quant"></div></td>
+						</tr>
+						<tr>
+						<td class="quibits_four interactive" id="2 0_four"><div class="quants white_quant"></div></td>
+						<td class="quibits_four interactive" id="2 1_four"><div class="quants sup_quant"></div></td>
+						<td class="quibits_four interactive" id="2 2_four"><div class="quants sup_quant"></div></td>
+						</tr>
+						</tbody>
+						</table>						
+				         <button class="game_gatter" id="snot_gatter_interactive"><span class="gatter_symbol">SNOT</span><br>gatter</button>
+
+			     </div>
+			    <div class="col-md-6">
+
+			   <!--  	старый текст -->
+                  <p  class="tutorial_text"> нет пока текста</p>
+                 </div>
+			    </div> 			    
+			</div>
+		    </div> <!-- container -->
+             <div class="button_block tutorial">
+					<button class="game_button  blue disabled" id="back_tutorial" >&larr; Zurück</button>
+					<button class="game_button blue" id="next_tutorial">Weiter &rarr;</button>
+					<button class="game_button blue" id="to_level">Zu Level 1 &rarr;</button>
+			   </div> 
+		</div> <!-- end of tutorial -->
+
+
+
+
+	
+
+		<div class="container">
+		<div class="stat_block">
+				<p class="game_stat">Level <span id="current_level">1</span>/8</p>
+				<p class="game_stat moves">Züge <span id="current_move">0</span>/<span id="max_moves_text">2</span></p>
+		    </div>	
+
+	
+
+			<div class="top_blocks">
+		   <div id="solution"></div>
+		   <p class="target_pattern">Zielmuster</p>		   		
+		   
+		  </div>
+		<div id="box"></div>
+		<div class="gatter_block">
+			<p class="gatter_block_title">Verfügbare Quantengatter</p>
+         <button class="game_gatter" id="x_gatter"><span class="gatter_symbol">X</span> <br> <span class="gatter_word"> Gatter</button>
+         <button class="game_gatter" id="h_gatter1"><span class="gatter_symbol">H0</span><br><span class="gatter_word"> Gatter</button>
+         <button class="game_gatter" id="h_gatter2"><span class="gatter_symbol">H1</span><br><span class="gatter_word"> Gatter</button>
+         <button class="game_gatter" id="swap_gatter"><span class="gatter_symbol">SWAP</span><br><span class="gatter_word"> Gatter</button>
+         <button class="game_gatter" id="snot_gatter"><span class="gatter_symbol">SNOT</span><br><span class="gatter_word"> Gatter</button>
+		</div>
+	    <div class="button_block">
+			<button class="game_button grey" id="back_move"><img class="back_icon" src="img/arrow.png"> Rückgängig</button>
+			<button class="game_button" id="information"><i class="pe-7s-help1"></i> Info</button>			
+	   </div>
+	   <div id="notification_modal">
+			<div id="close_modal"><i class="pe-7s-close"></i></div>
+            <div id="notification_message"></div>
+            <button class="game_button blue" id="pass_modal">Weiter &rarr;</button>
+            <div id="modal_buttons">
+              <button class="game_button blue" id="back_move_modal">Rückgängig</button> 
+              <button class="game_button blue" id="level_redone">Wiederholen &rarr;</button> 
+            </div>
+		</div>
+	</div> <!-- container -->
+	<div id="finish">
+      <p class="final_text">Glückwunsch!</p><p class="final_text_congratulation">Du hast alles richtig gelöst!</p>
+	</div>
+
+     
+    <script type="text/javascript" src="js/script.js"></script>
+	</body>	
+</html>
