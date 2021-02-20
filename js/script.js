@@ -639,18 +639,6 @@ window.onload = function() {
 	createPattern(level);
 	buildGame(sequence);
 
-
-
-// console.log(quibits_containers[0]);
-// console.log(quibits_containers[1]);
-// console.log(quibits_containers[2]);
-
-
-// settings(quibits_containers[0]);
-// settings(quibits_containers[1]);
-// settings(quibits_containers[2]);
-
-
 }
 information.addEventListener('click', function(){
 cleanTutorial();
@@ -816,19 +804,7 @@ function touchMove(e) {
   let currentY = e.touches[0].clientY; 
   diffX = initialX - currentX;
   diffY = initialY - currentY;
-
-
-
-
-
-
- // console.log(initialX + ' ' + currentX);
- // console.log(initialY + ' ' + currentY);
-
-
-  // console.log('Горизонтальное ' + initialX +  ' ' +  'Текущее ' + currentX + 'Разница' + diffX);
-
-  //  console.log('Вертикальное '+ initialY +  ' ' +  'Текущее ' + currentY + 'Разница' + diffY);
+// console.log('Вертикальное '+ initialY +  ' ' +  'Текущее ' + currentY + 'Разница' + diffY);
  
   if (Math.abs(diffX) > Math.abs(diffY)) {
     if (diffX > 0) { 
@@ -859,12 +835,14 @@ return false;
 
 let quibits_containers = document.querySelectorAll('.quibits_container');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
-let set_quibit = width_quibits.width*2.5;
+let set_quibit = width_quibits.width*2;
 let changedX = e.changedTouches[0].pageX;
 let changedY = e.changedTouches[0].pageY;
-let user_check_up = checkUpUserAction(initial_id, current_direction, initialX,changedX, initialY, changedY);
 
-console.log(user_check_up);
+console.log(changedY);
+let user_check_up = checkUpUserAction(initial_id, current_direction, 
+	initialX,changedX, initialY, changedY, set_quibit, false);
+
 if(!user_check_up){
 return false;
 }
@@ -892,22 +870,27 @@ let index = initial_id.charAt(2);
   e.preventDefault();
 };
 
+function checkUpUserAction(id, direction, startX, 
+	newX, startY, newY, size, prefix ){
 
-
-
-function checkUpUserAction(initial_id, current_direction, initialX, 
-	changedX, initialY, changedY, set_quibit ){
-if(current_direction== 'right'){
-
-	if(Math.abs(changedY-initialY) >80){
+	
+if(direction== 'right'){
+let right_set= 	['0 0', '1 0', '2 0'];
+	if(prefix){
+      for(let i=0; i< right_set.length; i++){
+      	right_set[i] = right_set[i]+prefix;
+      }
+	}
+	if(Math.abs(newY-startY) >80){
      return false;
 	}
-	if(initial_id== '0 0'|| initial_id== '1 0'|| initial_id== '2 0'){
-
-		if(Math.abs(changedX-initialX) <220){
+	if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){
+        // alert(id==right_set[0])
+		if(Math.abs(newX-startX) <size){
          return false;
 	    }
 	     else{
+	     	// alert('66666');
 	    	return true;
 	    }
 	}
@@ -916,13 +899,19 @@ if(current_direction== 'right'){
 	}
 }
 
-else if(current_direction== 'left'){
-			if(Math.abs(changedY-initialY) >80){
-     return false;
+else if(direction== 'left'){
+let left_set= 	['0 2', '1 2', '2 2'];
+	if(prefix){
+      for(let i=0; i< left_set.length; i++){
+      	left_set[i] = left_set[i]+prefix;
+      }
 	}
 
-	if(initial_id== '0 2'|| initial_id== '1 2'|| initial_id== '2 2'){
-		if(Math.abs(changedX-initialX) <220){
+   if(Math.abs(newY-startY) >80){
+     return false;
+	}
+if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
+		if(Math.abs(newX-startX) < size){
          return false;
 	    }
 	    else{
@@ -935,13 +924,22 @@ else if(current_direction== 'left'){
 }
 
 
-else if(current_direction== 'up'){
-	if(Math.abs(changedX-initialX) >80){
+else if(direction== 'up'){
+
+	let up_set= ['2 0', '2 1', '2 2'];
+	if(prefix){
+      for(let i=0; i< up_set.length; i++){
+      	up_set[i] = up_set[i]+prefix;
+      }
+	}
+
+
+	if(Math.abs(newX-startX) >80){
      return false;
 	}
 	
-	if(initial_id== '2 0'|| initial_id== '2 1'|| initial_id== '2 2'){
-		if(Math.abs(changedY-initialY) <220){
+	if(id== up_set[0] || id== up_set[1] || id== up_set[2]){
+		if(Math.abs(newY-startY) < size){
          return false;
 	    }
 	     else{
@@ -953,15 +951,21 @@ else if(current_direction== 'up'){
 	}
 }
 
-else if(current_direction== 'down'){
-	 if(Math.abs(changedX-initialX) >80){
+   else if(direction== 'down'){
+   		let down_set= ['0 0', '0 1', '0 2'];
+	if(prefix){
+      for(let i=0; i< down_set.length; i++){
+      	down_set[i] = down_set[i]+prefix;
+      }
+	}
+
+	 if(Math.abs(newX-startX) >80){
      return false;
 	}
 	
-	
-	if(initial_id== '0 0' || initial_id== '0 1'|| initial_id== '0 2'){
+	if(id== down_set[0] || id== down_set[1] || id== down_set[2]){
 		
-		if(Math.abs(changedY-initialY) <220){
+		if(Math.abs(newY-startY) < size){
          return false;
 	    }
 	     else{
@@ -975,7 +979,11 @@ else if(current_direction== 'down'){
 }
 
 
+
+
 let quibits_trainfirst_container = document.querySelectorAll('.interactive');
+
+
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
 quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
@@ -991,8 +999,6 @@ let current_direction_interactive;
 let initial_interctive_id;
 
 function touchStart_interactive(e) {
-
-
 let initial_interctive;
   initialX_interactive = e.touches[0].clientX;
   initialY_interactive = e.touches[0].clientY;
@@ -1040,16 +1046,18 @@ function touchMove_interactive(e) {
 
 
 
-  initialX_interactive = null;
-  initialY_interactive = null;   
+  
   e.preventDefault();
 };
 let prefix;
 // [[3,2,1]  3 прозрачный, 2 синий, 1 серий
 let interact_combination = [[2,3,3], [1,2,2], [1,3,3]];
 function touchEnd_interactive(e) {
-
-
+let quibits_containers = document.querySelectorAll('.interactive');
+let width_quibits = quibits_containers[0].getBoundingClientRect();
+let int_size = width_quibits.width*2;
+let changedX = e.changedTouches[0].pageX;
+let changedY = e.changedTouches[0].pageY;
 
 let part;
 let position;
@@ -1066,6 +1074,20 @@ let position;
     else if(level ==5){
       prefix = '_four';
     }
+
+
+let user_check_up = checkUpUserAction(initial_interctive_id, current_direction_interactive, 
+	initialX_interactive, changedX, initialY_interactive, changedY, int_size, prefix);
+
+if(!user_check_up){
+return false;
+}
+  initialX_interactive = null;
+  initialY_interactive = null; 
+
+console.log('int_size  '  +  int_size);
+
+
 	
 
 let final;
@@ -1201,7 +1223,7 @@ else{
 
 
 setTimeout('showInteractResult(prefix)', 1000);
-console.log(interact_combination);
+
 }
 
 
@@ -1260,17 +1282,7 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 
 
 
-function settings(div){
-var coord = div.getBoundingClientRect();
-let a = coord.width*3 + coord.left;
-let b = coord.height*3 + coord.top;
-// console.log(a);
-console.log('Левый край '+coord.left +' ' +a );
-// console.log('Верхний край '+coord.top + ' ' + b);
 
-
-// console.log('Конец');
-}
 
 
 

@@ -217,6 +217,7 @@ font-family:"SegoeUI";
 position: absolute;
 right: 0;
 bottom: 30px;
+line-height: 70px;
 }
 .button_block{
 text-align: right;
@@ -224,7 +225,6 @@ text-align: right;
 .button_block.tutorial{
 text-align: center;	
 }
-
 p.tutorial_text{
 margin-bottom: 30px;
 font-family:"SegoeUI";
@@ -244,11 +244,6 @@ color: #fff;
 margin-top: 0;	
 text-transform: uppercase;
 }
-
-
-
-
-
 .tutorial_section
 {
 padding: 0;
@@ -313,7 +308,6 @@ width: 90px;
 height: 90px;
 border-radius: 50%;
 }
-
 .note_text{
 margin-bottom: 10px;
 font-family: "SegoeUI Light";
@@ -322,7 +316,6 @@ text-align: left;
 color: #fff;
 margin:0;   
 }
-
 #notification_table{
 position: absolute;
 top: 55%;
@@ -334,8 +327,6 @@ height: 20px;
 border-radius: 50%;
 margin: 10px;
 }
-
-
 .interactive>.quants,
 .static_table>.quants{
 width: 90px;
@@ -424,7 +415,6 @@ background-color: rgba(255,255,255, 0.4);
 box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
 border:solid 2px #00a6d5;
 }
-
 .interactive,
 .static_table{
 background-color: rgba(255,255,255, 0.2);
@@ -504,14 +494,12 @@ margin-bottom: 30px;
 -ms-user-select: none;
 user-select: none;
 }
-
 .interactive_gatter_block{
 max-width: 380px;
 margin: auto;
 text-align: left;
 padding-top: 20px;
 }
-
 .target_pattern{
 color: #fff;
 font-size: 42px;
@@ -523,11 +511,10 @@ display: inline-block;
 max-height: 30px;
 }
 .game_gatter{
-
-    -webkit-box-shadow: 0px 0px 18px 99px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
-    -moz-box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
-    box-shadow: 0px 0px 18px 18px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
-    -webkit-tap-highlight-color: transparent;
+-webkit-box-shadow: 0px 0px 18px 99px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
+-moz-box-shadow: 0px 0px 18px 18px rgba(0, 185, 238, 0.15) inset, 0px 0px 18px 18px rgba(0, 185, 238, 0.15);
+box-shadow: 0px 0px 18px 18px rgb(0 185 238 / 15%) inset, 0px 0px 18px 18px rgb(0 185 238 / 15%);
+-webkit-tap-highlight-color: transparent;
 color: #fff;
 border: 2px solid #fff;
 border-radius: 7px;
@@ -601,7 +588,6 @@ padding-top: 200px;
 display: none;
 box-sizing: border-box;
 }
-
 p.final_text,
 .final_text_congratulation {
 font-family: "SegoeUI Light";
@@ -610,9 +596,6 @@ text-align: center;
 color: #fff;
 margin-top: 0;  
 }
-
-
-
 .quant_field{
 min-height: 100vh;
 padding: 0;
@@ -651,13 +634,12 @@ font-size: 18px;
 }
 #notification_modal {
 padding: 30px 15px;
-
 max-width: 95%;
 z-index: 7;
 
 }
 #notification_message {
-	padding-top: 220px;
+padding-top: 220px;
 text-align: center;
 font-size: 25px;
 margin-top: 16px;
@@ -684,25 +666,40 @@ line-height: 24px;
 }
 }
 .pe-7s-close:before {
-	content: "\e680";
-	font-size: 130px;
+content: "\e680";
+font-size: 130px;
 }
-
 .pe-7s-help1:before {
-    content: "\e64a";
-    font-size: 50px;
-    line-height: 50px;
+content: "\e64a";
+font-size: 45px;
+vertical-align: middle;
 }
-
 .tutorial_title_text.small{
 text-transform: none;
 text-align: center;
 }
-
-
 .tutorial_table, 
 .interactive_table{
 border-collapse:  collapse;
 margin: 0 auto;
+}
+.game_button>i { 
+width: 60px;
+height: 60px;
+display: inline-block;
+vertical-align: middle;
+position: relative;
+outline: none;
+}
+.game_button>i:before{
+line-height: 50px;   
+padding: 0;
+margin: 0; 
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+margin: 0 auto;
+outline: none;
 }
 
