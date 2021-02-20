@@ -493,7 +493,6 @@ if(level <=1){
       tutorial = document.querySelectorAll('.tutorial_block4');		
 	}
 
-	console.log(tutorial);
 }
 function cleanTutorial(){
  let tutorials = document.querySelectorAll('.tutorial_section');	
@@ -639,6 +638,19 @@ window.onload = function() {
 	solution = document.getElementById('solution');
 	createPattern(level);
 	buildGame(sequence);
+
+
+
+// console.log(quibits_containers[0]);
+// console.log(quibits_containers[1]);
+// console.log(quibits_containers[2]);
+
+
+// settings(quibits_containers[0]);
+// settings(quibits_containers[1]);
+// settings(quibits_containers[2]);
+
+
 }
 information.addEventListener('click', function(){
 cleanTutorial();
@@ -743,7 +755,7 @@ for(let i=0; i<3; i++){
       combination.unshift(id); 
     }
    setTimeout('applyHorizontalGatter()', 1000); 
-   setTimeout('resetGatter()', 1200);
+   // setTimeout('resetGatter()', 1200);
 
 }
 function handleColumn(active_column){
@@ -753,7 +765,7 @@ for(let i=0; i<3; i++){
         document.getElementById(id).classList.add('active');
       } 
       setTimeout('applyVerticalGatter()', 1000); 
-      setTimeout('resetGatter()', 1200);	
+      // setTimeout('resetGatter()', 1200);	
 }
 
 
@@ -806,6 +818,14 @@ function touchMove(e) {
   diffY = initialY - currentY;
 
 
+
+
+
+
+ // console.log(initialX + ' ' + currentX);
+ // console.log(initialY + ' ' + currentY);
+
+
   // console.log('Горизонтальное ' + initialX +  ' ' +  'Текущее ' + currentX + 'Разница' + diffX);
 
   //  console.log('Вертикальное '+ initialY +  ' ' +  'Текущее ' + currentY + 'Разница' + diffY);
@@ -823,8 +843,7 @@ function touchMove(e) {
       current_direction = 'down';
     }  
   } 
-  initialX = null;
-  initialY = null;   
+   
   e.preventDefault();
 };
 
@@ -834,57 +853,30 @@ if(!gatter_in_action){
 return false;
 }
 
+if(moves>=available_moves){
+return false;
+}
+
+let quibits_containers = document.querySelectorAll('.quibits_container');
+let width_quibits = quibits_containers[0].getBoundingClientRect();
+let set_quibit = width_quibits.width*2.5;
+let changedX = e.changedTouches[0].pageX;
+let changedY = e.changedTouches[0].pageY;
+let user_check_up = checkUpUserAction(initial_id, current_direction, initialX,changedX, initialY, changedY);
+
+console.log(user_check_up);
+if(!user_check_up){
+return false;
+}
+
+  initialX = null;
+  initialY = null;
+
+
+
 let index = initial_id.charAt(2);
 
 
-
-// if(index==0 || index==2){
-// 	let on = true;
-// 	// alert(index);
-// }
-// else{
-// return false;	
-// }
-
-
-
-
-// if(current_direction == 'left' || current_direction == 'right'){
-// 	console.log('Горизонталка '  + diffX);
-// 		 if(Math.abs(diffX)<19){
-// 		 	// alert("Мало горизонталки "  +  Math.abs(diffX));
-// 		 	return false;
-// 		 }
-// 	}
-// 	else{
-// 		console.log('Вертикалка '  + diffY);
-// 	    if(Math.abs(diffY)<20){
-// 	    	// alert("Мало вертикалки");
-// 		 	return false;
-// 		 }
-// 	}
-
-
-
-
-// let final;  
-
-// let elements = e.target || window.event;   
-// 	if(elements.classList.contains('quants')){
-// 	   final = e.target.parentNode;
-// 	}
-// 	else{
-// 	   final = e.target;
-// 	}
-
-// 	let final_id =final.getAttribute('id'); 
-     // alert(current_direction + "   "+  initial_id +  "  " + final_id );
-
-
-  if(moves>=available_moves){
-    return;
-  }
-  else{
 	let active_line = initial_id.charAt(0);
 	let active_column = initial_id.charAt(2);
 	let current_state = working_sequence.map(sub => sub.slice());
@@ -896,10 +888,91 @@ let index = initial_id.charAt(2);
 	else{
 	    handleColumn(active_column); 	
 	}
-}   
+  
   e.preventDefault();
 };
 
+
+
+
+function checkUpUserAction(initial_id, current_direction, initialX, 
+	changedX, initialY, changedY, set_quibit ){
+if(current_direction== 'right'){
+
+	if(Math.abs(changedY-initialY) >80){
+     return false;
+	}
+	if(initial_id== '0 0'|| initial_id== '1 0'|| initial_id== '2 0'){
+
+		if(Math.abs(changedX-initialX) <220){
+         return false;
+	    }
+	     else{
+	    	return true;
+	    }
+	}
+	else{
+		return false;
+	}
+}
+
+else if(current_direction== 'left'){
+			if(Math.abs(changedY-initialY) >80){
+     return false;
+	}
+
+	if(initial_id== '0 2'|| initial_id== '1 2'|| initial_id== '2 2'){
+		if(Math.abs(changedX-initialX) <220){
+         return false;
+	    }
+	    else{
+	    	return true;
+	    }
+	}
+	else{
+		return false;
+	}
+}
+
+
+else if(current_direction== 'up'){
+	if(Math.abs(changedX-initialX) >80){
+     return false;
+	}
+	
+	if(initial_id== '2 0'|| initial_id== '2 1'|| initial_id== '2 2'){
+		if(Math.abs(changedY-initialY) <220){
+         return false;
+	    }
+	     else{
+	    	return true;
+	    }
+	}
+	else{
+		return false;
+	}
+}
+
+else if(current_direction== 'down'){
+	 if(Math.abs(changedX-initialX) >80){
+     return false;
+	}
+	
+	
+	if(initial_id== '0 0' || initial_id== '0 1'|| initial_id== '0 2'){
+		
+		if(Math.abs(changedY-initialY) <220){
+         return false;
+	    }
+	     else{
+	    	return true;
+	    }
+	}
+	else{
+		return false;
+	}
+  }
+}
 
 
 let quibits_trainfirst_container = document.querySelectorAll('.interactive');
@@ -1128,7 +1201,7 @@ else{
 
 
 setTimeout('showInteractResult(prefix)', 1000);
-// console.log(interact_combination);
+console.log(interact_combination);
 }
 
 
@@ -1182,31 +1255,23 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 });
 }
 
-let div1 = document.getElementById('#0 2');
-let div2 = document.getElementById('#2 2');
 
-// window.onload = function(){
-// settings(div1);
-// settings(div2);
-// }
-// function settings(div){
-// var coord = div.getBoundingClientRect();
-// console.log('Левый край '+coord.left);
-// console.log('Верхний край '+coord.top);
+
+
+
+
+function settings(div){
+var coord = div.getBoundingClientRect();
+let a = coord.width*3 + coord.left;
+let b = coord.height*3 + coord.top;
+// console.log(a);
+console.log('Левый край '+coord.left +' ' +a );
+// console.log('Верхний край '+coord.top + ' ' + b);
+
+
 // console.log('Конец');
-// }
+}
 
 
 
 
-// let coordinates = current_fill.getBoundingClientRect();
-// mnemo_coord_x = coordinates.top;
-// mnemo_coord_y = coordinates.left;
-//     for (let i=0; i<mnemo_empties.length; i++){
-//         let c = mnemo_empties[i].getBoundingClientRect();
-//         let block_coordinate_x = c.left;
-//         let block_coordinate_y = c.top;
-//         let coor_to_check = [block_coordinate_x, block_coordinate_y ];
-//        blocks_coordinates.push(coor_to_check);
-//        coor_to_check = [];
-//     }
