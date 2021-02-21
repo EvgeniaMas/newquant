@@ -10,7 +10,6 @@ font-style:normal;
 font-weight:normal;
 font-display: swap;
 }
-
 @font-face{font-family:"SegoeUI Light";
 src:url("../fonts/Light/segoeuilight.eot");
 src:url("../fonts/Light/segoeuilight.eot?#iefix") format('embeddedopentype'),
@@ -23,7 +22,6 @@ font-style:normal;
 font-weight:normal;
 font-display: swap;
 }
-
 @font-face{font-family:"SegoeUI Semibold";
 src:url("../fonts/SemiBold/seguisemi.eot");
 src:url("../fonts/SemiBold/seguisemi.eot?#iefix") format('embeddedopentype'),
@@ -36,8 +34,6 @@ font-style:normal;
 font-weight:normal;
 font-display: swap;
 }
-
-
 @font-face{font-family:"Stroke";
 src:url("../fonts/stroke/Pe-icon-7-stroke.eot");
 src:url("../fonts/stroke/Pe-icon-7-stroke.eot?#iefix") format('embeddedopentype'),
@@ -62,9 +58,10 @@ font-size: 130px;
 }
 html, body{
 padding: 0;	
-/*overflow: hidden;*/
+overflow: hidden;
 -ms-touch-action: none;
 touch-action: none;
+height: 100vh;
 }
 html{
 background-image: url('../img/background_game.jpg');
@@ -88,13 +85,10 @@ width: 33.33333333%;
 float: left;	
 width: 66.66666667%;
 }
-
 .col-md-6 {
 width: 50%;
 float: left;
 }
-
-
 .col-md-12{
 width: 100%;
 height: 60vh;
@@ -143,11 +137,12 @@ color: #fff;
 background-color: transparent;
 color: #fff;
 border: 2px solid #fff;
-font-size: 30px;
-width: 310px;
-height: 70px;
-line-height: 60px;
-border-radius: 35px;
+/*font-size: 27px;*/
+font-size: 25px;
+width: 290px;
+height: 64px;
+line-height: 64px;
+border-radius: 32px;
 font-family: "SegoeUI";
 outline: none;
 cursor: pointer;
@@ -210,14 +205,14 @@ background-color: transparent;
 color: #fff;
 border: 2px solid #fff;
 font-size: 30px;
-width: 310px;
-height: 70px;
+width: 290px;
+height: 64px;
 border-radius: 35px;
 font-family:"SegoeUI";
 position: absolute;
 right: 0;
 bottom: 30px;
-line-height: 70px;
+line-height: 64px;
 }
 .button_block{
 text-align: right;
@@ -226,121 +221,121 @@ text-align: right;
 text-align: center;	
 }
 p.tutorial_text{
-margin-bottom: 30px;
 font-family:"SegoeUI";
-font-size: 26px;
+/*font-size: 26px;*/
+font-size: 22px;
 text-align: left;
 line-height: 29px;
 color: #fff;
 margin-top: 0;
 }
 
+
+.highlighted {
+-webkit-box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
+-moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
+border: 2px solid #00a6d5;
+position: absolute;
+z-index: 3;  
+background-color: transparent; 
+}
+.highlighted.one{
+top: 12%;
+left: 0;
+right: 0;
+margin: 0 auto;
+width: 61%;
+height: 55%;
+}
+.highlighted.two{
+bottom: 16%;
+left: 0;
+right: 0;
+margin: 0 auto;
+width: 40%;
+height: 21%;
+}
+.highlighted.three{
+top: 19%;
+left: 3%;
+width: 19%;
+height: 29%;
+}
+.highlighted.four{
+top: 1%;
+left: 29%;
+width: 15%;
+height: 11%;
+}
+.highlighted.five{
+top: 1%;
+right: 33%;
+width: 15%;
+height: 11%;
+}
+.highlighted.six{
+bottom: 9%;
+left: 1%;
+width: 21%;
+height: 10%;
+}
+.highlighted.seven{
+bottom: 9%;
+right: 1%;
+width: 21%;
+height: 10%;
+}
+
 .game_rules_text{
 font-family:"SegoeUI";
-font-size: 20px;
+font-size: 16px;
 text-align: left;
-line-height: 29px;
+line-height: 19px;
 color: #fff;
 padding: 20px;
 background-color: #011027;
 position: absolute;
-top: 43%;
+top: 33%;
 max-width: 300px;
 z-index: 4;
 -webkit-box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
-    -moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
-    box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
-    border: 2px solid #00a6d5;
+-moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
+box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
+border: 2px solid #00a6d5;
 }
-
-.highlighted {
--webkit-box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
-    -moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
-    box-shadow: 0px -1px 21px 12px rgb(38 145 254 / 20%);
-    border: 2px solid #00a6d5;
-    position: absolute;
-    z-index: 3;  
-    background-color: transparent; 
-}
-
-.highlighted.one{
-top: 18%;
-left: 0;
-right: 0;
-margin: 0 auto;
-width: 40%;
-height: 35vh;
-}
-
-.highlighted.two{
-bottom: 11%;
-left: 0;
-right: 0;
-margin: 0 auto;
-width: 40%;
-height: 17vh;
-}
-.highlighted.three{
-top: 18%;
-left: 17%;
-width: 15%;
-height: 23vh;
-}
-
-.highlighted.four{
-top: 1%;
-left: 35%;
-width: 12%;
-height: 8vh;
-}
-
-.highlighted.five{
-top: 1%;
-right: 37%;
-width: 12%;
-height: 8vh;
-}
-
-.highlighted.six{
-bottom: 3%;
-right: 14%;
-width: 17%;
-height: 10vh;
-}
-
-.highlighted.seven{
-bottom: 3%;
-left: 14%;
-width: 17%;
-height: 10vh;
-}
-
 
 .game_rules_text.one{
-left: 12%;
+left: -13%;
 }
-
 .game_rules_text.two{
-left: 12%;
+left: -13%;
+top: 50%;
+}
+.game_rules_text.three{
+top: 60%;
+left: -13%;
 }
 
-.game_rules_text.three,
-.game_rules_text.four,
-.game_rules_text.five{
-top: 60%;
-left: 0;
+.game_rules_text.four{
+right: 6%;
+top: 5%;
 }
+
+.game_rules_text.five{
+left: 6%;
+top: 5%;	
+}
+
 
 .game_rules_text.six{
-right: 0;
-
+right: -12%;
+top: 40%;
 }
-
 .game_rules_text.seven{
-left: 0;
-
+left: -12%;
+top: 40%;
 }
-
 p.tutorial_title_text{
 margin-bottom: 50px;
 font-family:"SegoeUI Light";
@@ -389,20 +384,18 @@ display: none;
 /*background-color: #fff;*/
 background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(145,145,145,1) 50%, rgba(34,34,34,1) 100%);
-margin: 20px;
 border: 2px solid #333;
 }
 .black_quant{
 background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,189,238,1) 50%, rgba(2,63,132,1) 100%);
-margin: 20px;
+
 border:solid 2px #333;
 /*черный был*/
 }
 .sup_quant{
 /*Супер была серая*/
 background-color: transparent;
-margin: 20px;
 border: 2px solid #fff;
 }
 .black_quant.mini, 
@@ -414,9 +407,12 @@ margin: 8px;
 border-radius: 50%;
 }
 .quants{
-width: 90px;
-height: 90px;
+width: 5.2vw;
+height: 5.2vw;
+max-width: 100px;
+max-height: 100px;
 border-radius: 50%;
+margin: 16px;
 }
 .note_text{
 margin-bottom: 10px;
@@ -439,15 +435,20 @@ margin: 10px;
 }
 .interactive>.quants,
 .static_table>.quants{
-width: 90px;
-height: 90px;
+/*width: 90px;
+height: 90px;*/
+max-height: 65px;
+max-width: 65px;
+width: 4.5vw;
+height: 4.5vw;
 }
 .blue{
 color: #4f81bd;
 }
 .game_stat{
 color: #fff;
-font-size: 42px;
+/*font-size: 42px;*/
+font-size: 36px;
 font-family:"SegoeUI Light";
 text-align: right;
 display: inline-block;
@@ -456,13 +457,13 @@ line-height: 42px;
 padding-right: 7%;
 box-sizing: border-box;
 margin-bottom: 20px;
-margin-top: 30px;
+margin-top: 20px;
 }
 .stat_block>.game_stat.moves{
 margin-bottom: 20px;
-margin-top: 30px;	
 color: #fff;
-font-size: 42px;
+/*font-size: 42px;*/
+font-size: 36px;
 font-family:"SegoeUI Light";	
 display: inline-block;
 width: 49%;
@@ -477,7 +478,7 @@ border-bottom: 2px solid #fff;
 width: 100%;
 }
 #box{
-padding-top: 10vh;
+padding-top: 15vh;
 align-items: center;
 position: relative;
 z-index: 2;	
@@ -495,7 +496,7 @@ table#game_target{
 -ms-user-select: none;
 user-select: none;
 display: inline-block;
-margin-top: 20vh;
+margin-top: 26vh;
 background-color: rgba(255,255,255, 0.2);
 }
 td {				
@@ -596,9 +597,10 @@ margin-top: 30px;
 }
 .gatter_block_title{
 color: #fff;
-font-size: 42px;
+/*font-size: 42px;*/
+font-size: 30px;
 font-family:"SegoeUI Light";
-margin-bottom: 30px;
+margin-bottom: 20px;
 -webkit-user-select: none;
 -moz-user-select: none;
 -ms-user-select: none;
@@ -612,9 +614,10 @@ padding-top: 20px;
 }
 .target_pattern{
 color: #fff;
-font-size: 42px;
+/*font-size: 42px;*/
+font-size: 36px;
 font-family:"SegoeUI Light";
-margin-bottom: 30px;
+margin-bottom: 20px;
 }
 .back_icon{
 display: inline-block;
@@ -647,10 +650,10 @@ color: #000;
 opacity: 1;  
 }
 .game_gatter>span{
-font-size: 42px;
+font-size: 36px;
 }
 .game_gatter>span.gatter_word{
-font-size: 26px;
+font-size: 24px;
 }
 .game_gatter:hover{
 opacity: 0.9;
@@ -710,71 +713,6 @@ margin-top: 0;
 min-height: 100vh;
 padding: 0;
 }
-@media (max-width: 768px) {
-.top_blocks{
-position: relative;
-}
-.sup_quant, .white_quant,
-.black_quant {
-width: 40px;
-height: 40px;
-margin: 15px;
-}
-.game_gatter {
-font-size: 18px;
-padding: 20px 10px;
-margin-bottom: 20px;
-}
-#box {
-padding-top: 40px;
-}
-#close {
-font-size: 32px;
-top: -15px;
-right: 0px;
-}
-.game_button{
-margin-bottom: 20px;
-}
-.game_stat,
-.stat_block>.game_stat.moves,
-.target_pattern,
-.gatter_block_title{
-font-size: 18px;
-}
-#notification_modal {
-padding: 30px 15px;
-max-width: 95%;
-z-index: 7;
-
-}
-#notification_message {
-padding-top: 220px;
-text-align: center;
-font-size: 25px;
-margin-top: 16px;
-margin-bottom: 16px;
-}
-.game_button {
-font-size: 18px;
-padding: 10px 20px;
-}
-.game_gatter {
-font-size: 18px;
-padding: 20px 16px;
-}
-p.tutorial_title_text {
-margin-bottom: 30px;
-font-size: 24px;
-text-align: center;
-line-height: 1;
-}
-p.tutorial_text {
-margin-bottom: 30px;
-font-size: 19px;
-line-height: 24px;
-}
-}
 .pe-7s-close:before {
 content: "\e680";
 font-size: 130px;
@@ -812,11 +750,19 @@ right: 0;
 margin: 0 auto;
 outline: none;
 }
-
+.col-md-12.desc_container{
+width: 80%;
+max-width: 1100px;
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+height: 100%;
+margin: 0 auto;
+}
 .game_rules{
 display: block;
-/*max-width: 80%;*/
-max-height: 95%;
+width: 100%;
 position: absolute;
 top:0;
 z-index: 1;
@@ -824,9 +770,98 @@ left: 0;
 right: 0;
 margin: auto;
 }
-
 .tutorial_section{
 width: 100%;
 height: 100%;
 min-height: 75vh;
+}
+.container.main_container{
+height: 100%;
+}
+@media (max-width: 1366px) {
+.col-md-12.desc_container{
+width: 66%;
+}
+p.tutorial_title_text {
+margin-bottom: 30px;
+font-size: 48px;
+}
+
+.pe-7s-close:before {
+font-size: 91px;
+}
+
+p.tutorial_text{
+font-size: 18px;
+}
+
+#box {
+padding-top: 7vh;
+}
+table#game_target{
+margin-top: 20vh;
+}
+@media (max-width: 768px) {
+.top_blocks{
+position: relative;
+}
+.sup_quant, .white_quant,
+.black_quant {
+width: 40px;
+height: 40px;
+margin: 15px;
+}
+.game_gatter {
+font-size: 18px;
+padding: 20px 10px;
+margin-bottom: 20px;
+}
+#box {
+padding-top: 40px;
+}
+#close {
+font-size: 32px;
+top: -15px;
+right: 0px;
+}
+.game_button{
+margin-bottom: 20px;
+}
+.game_stat,
+.stat_block>.game_stat.moves,
+.target_pattern,
+.gatter_block_title{
+font-size: 18px;
+}
+#notification_modal {
+padding: 30px 15px;
+max-width: 95%;
+z-index: 7;
+}
+#notification_message {
+padding-top: 220px;
+text-align: center;
+font-size: 25px;
+margin-top: 16px;
+margin-bottom: 16px;
+}
+.game_button {
+font-size: 18px;
+padding: 10px 20px;
+}
+.game_gatter {
+font-size: 18px;
+padding: 20px 16px;
+}
+p.tutorial_title_text {
+margin-bottom: 30px;
+font-size: 24px;
+text-align: center;
+line-height: 1;
+}
+p.tutorial_text {
+margin-bottom: 30px;
+font-size: 19px;
+line-height: 24px;
+}
 }

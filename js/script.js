@@ -32,6 +32,8 @@ let solution_sequence = [  [[3,2,2], [2,2,2], [1,3,3]],
  [[1,1,2], [3,1,2], [3,3,3]]
 ];
 
+let attempt = [0, 0, 0,0];
+
 let moves =0;
 let level = 0;
 let max_moves = [12,3,2,3,2,2,2,3];
@@ -826,6 +828,8 @@ function touchMove(e) {
 
 function touchEnd(e) {
 if(!gatter_in_action){
+let empty_message = '<p class="tutorial_text">Du hast nichts gewählt!</p>';	
+notifyPlayer(empty_message);
 return false;
 }
 
@@ -1085,8 +1089,9 @@ return false;
   initialX_interactive = null;
   initialY_interactive = null; 
 
-console.log('int_size  '  +  int_size);
 
+// let empty_message = '<p class="tutorial_text">Du hast nichts gewählt!</p>';	
+// notifyPlayer(empty_message);
 
 	
 
