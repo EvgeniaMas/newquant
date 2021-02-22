@@ -32,11 +32,11 @@ let solution_sequence = [  [[3,2,2], [2,2,2], [1,3,3]],
  [[1,1,2], [3,1,2], [3,3,3]]
 ];
 
-let attempt = [0, 0, 0,0];
+let attempt = [0, [0, 0], 0,0];
 
 let moves =0;
 let level = 0;
-let max_moves = [12,3,2,3,2,2,2,3];
+let max_moves = [2,3,2,3,2,2,2,3];
 let available_moves = max_moves[level];
 let box, solution;
 // check if level solved;
@@ -86,7 +86,7 @@ function fadeIn(el) {
 // click on game board handlings
 let combination = [];
 function overMoves(){
-  	let message =  '<p class="tutorial_text centered_text"> Du hast die maximale Anzahl von Zügen erreicht. Drücke auf "Rückgängig", um einen Zug zurückzuziehen oder starte den Level erneut.</p>';
+  	let message =  '<p class="tutorial_text centered_text"> Du hast die maximale Anzahl von Zügen erreicht. <br><br> Drücke auf "Rückgängig", um einen Zug zurückzuziehen oder starte den Level erneut.</p>';
     modal_buttons.style.display = 'block';
     pass_modal.style.display = 'none';
     notifyPlayer(message);	
@@ -110,6 +110,9 @@ function cellClick(event) {
              if(aсtive_index){
 		  	  combination.splice(active_index, 1); }
 		  }
+
+
+
 		  else{
 	
 		  	combination = [];
@@ -122,10 +125,23 @@ function cellClick(event) {
 		combination.unshift(index_in_collection);
 		let active_line = el.childNodes[0].id.charAt(0);
 		let active_quilbit = el.childNodes[0].id.charAt(2);
-		if(combination.length>2){		
-			document.getElementById(combination[2]).classList.remove('active');
-			combination.pop();
-		}
+
+		 if(combination.length==2){
+		  if(gatter_in_action == 'swap_gatter'){
+		  	 swapGatter();
+
+		  }
+		  else if(gatter_in_action == 'snot_gatter'){
+              snotGatter();
+		  }
+		   setTimeout('resetGatter(gatter_in_action)', 1200);
+
+       }
+
+		// if(combination.length>2){		
+		// 	document.getElementById(combination[2]).classList.remove('active');
+		// 	combination.pop();
+		// }
        }
     }
 }
@@ -648,7 +664,8 @@ cleanTutorial();
 	next_tutorial.style.display = 'inline-block';
 	to_level.style.dist_horizontal = 'none';
 	back_tutorial.classList.add('disabled');
-
+	to_level.classList.add('disabled');	
+    
 	fadeIn(tutorial_show);
 });
 close.addEventListener('click', function(){
@@ -1144,9 +1161,12 @@ let elements = e.target || window.event;
 	}
 
 
+	
+
 
 	applyInteractMechanics(part, position, interactive_gatter, prefix);
-  
+
+   tutorialNotifications();
   e.preventDefault();
 };
 
@@ -1391,14 +1411,59 @@ let el = event.target || window.event;
 
 		}
        }
+tutorialNotifications();
 
-if(attempt[current_tutor_index] == 0){
-let encourage_message = '<p class="tutorial_text centered_text">Super! Du hast das gemacht!</p>';	
-notifyPlayer(encourage_message);
-attempt[current_tutor_index] ==1	
 }
 
-// setTimeout('resetGatter(interactive_gatter)', 1200);
+function tutorialNotifications(){
+let encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 1“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 1 starten.</p>';
+if(current_tutor_index==1){
+  if(attempt[current_tutor_index][0] == 0){
+    attempt[current_tutor_index][0] = 1;
+     encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut, jetzt probiere den Gatter H1 anzuwenden!</p>';	
+    notifyPlayer(encourage_message);
+     attempt[current_tutor_index] =1;
+   }
+
+   else if(attempt[current_tutor_index][0] ==1){
+   	 if(attempt[current_tutor_index][1] ==0){
+     let mess = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 3“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 3 starten</p>';	
+    notifyPlayer(mess);
+      attempt[current_tutor_index][1] ==1;
+
+      to_level.classList.remove('disabled');
+
+
+       setTimeout('resetGatter(interactive_gatter)', 1200);
+
+     }
+   	 }
+   	 return false;
+   }
+
+// }
+
+if(attempt[current_tutor_index] == 0){
+attempt[current_tutor_index] =1;
+	if(current_tutor_index == 2){
+     encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 5“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 5 starten.!</p>';	
+	}
+	else if(current_tutor_index ==3){
+		encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Unser Zielqubitist nun schwarz geworden, hat also den Zustand geändert. Ist unser Kontrollqubit 0, so ändert sich nichts am Zielqubit. Wiederholen CNOT Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 7“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 7 starten.</p>';	
+	}
+
+}
+
+
+  setTimeout(function() {
+        notifyPlayer(encourage_message); 
+  }, 1000);
+
+
+	
+
+to_level.classList.remove('disabled');
+setTimeout('resetGatter(interactive_gatter)', 1200);
 }
 
 
