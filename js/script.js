@@ -17,6 +17,8 @@ const level_redone = document.getElementById('level_redone');
 const modal_buttons = document.getElementById('modal_buttons');
 const to_level = document.getElementById('to_level');
 const game_field = document.getElementById('game_field');
+const close_info = document.getElementById('close_info');
+const info_section = document.getElementById('info_section');
 let close =document.getElementById('close');
 let sequence = [[3,2,1], [1,1,2], [1,3,3]];
 let working_sequence = sequence.map(sub => sub.slice());
@@ -237,6 +239,15 @@ function closeModal(){
 fadeOut(notification_modal);
 overlay.style.display = 'none';
 }
+if(close_info){
+	close_info.addEventListener('click', function(){
+	fadeOut(info_section);
+})
+}
+
+
+
+
 // gates
 function turnOnGatter(){
 const x_gatter = document.getElementById('x_gatter');
@@ -498,7 +509,7 @@ let index = 0;
 let tutorial = document.querySelectorAll('.tutorial_block1');
 let index_length = tutorial.length;
 function checkTutorial(){
-if(level <=1){
+   if(level <=1){
      tutorial = document.querySelectorAll('.tutorial_block1');	
 	}
 	else if(level < 3){
@@ -659,14 +670,42 @@ window.onload = function() {
 
 }
 information.addEventListener('click', function(){
-cleanTutorial();
+let info_table = document.querySelectorAll('.info_table');
 
-	next_tutorial.style.display = 'inline-block';
-	to_level.style.dist_horizontal = 'none';
-	back_tutorial.classList.add('disabled');
-	to_level.classList.add('disabled');	
+	for(let i=0; i<info_table.length; i++){
+	   info_table[i].style.display = 'none';
+	}
+document.getElementById('x_gatter_show').style.display = 'block';	
+   if(level <=1){
+   
+     
+	}
+	else if(level < 3){
+       document.getElementById('x_gatter_show').style.display = 'block';
+       document.getElementById('h1_gatter_show').style.display = 'block';
+       document.getElementById('h2_gatter_show').style.display = 'block';
+	}
+	else if(level < 5){
+       document.getElementById('swap_show').style.display = 'block';	
+	}
+	else if(level >5){
+       document.getElementById('snot_show').style.display = 'block';	
+	}
+
+
+	
+fadeIn(info_section);
+document.getElementById('x_gatter_show').style.display = 'block';
+
+
+// cleanTutorial();
+
+// 	next_tutorial.style.display = 'inline-block';
+// 	to_level.style.dist_horizontal = 'none';
+// 	back_tutorial.classList.add('disabled');
+// 	to_level.classList.add('disabled');	
     
-	fadeIn(tutorial_show);
+// 	fadeIn(tutorial_show);
 });
 close.addEventListener('click', function(){
    fadeOut(tutorial_show);
@@ -1458,9 +1497,6 @@ attempt[current_tutor_index] =1;
   setTimeout(function() {
         notifyPlayer(encourage_message); 
   }, 1000);
-
-
-	
 
 to_level.classList.remove('disabled');
 setTimeout('resetGatter(interactive_gatter)', 1200);
