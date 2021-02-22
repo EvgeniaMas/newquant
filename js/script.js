@@ -34,6 +34,16 @@ let solution_sequence = [  [[3,2,2], [2,2,2], [1,3,3]],
  [[1,1,2], [3,1,2], [3,3,3]]
 ];
 
+
+let gatters_images = [
+'<div class="game_gatter_info"><span class="gatter_symbol">X</span> <br> <span class="gatter_word"> Gatter</span></div>',    
+'<div class="game_gatter_info"><span class="gatter_symbol">H0</span> <br> <span class="gatter_word"> Gatter</span></div>',     
+'<div class="game_gatter_info"><span class="gatter_symbol">H1</span><br> <span class="gatter_word"> Gatter</span></div>',
+'<div class="game_gatter_info"><span class="gatter_symbol">SWAP</span> <br> <span class="gatter_word"> Gatter</span></div>',      
+'<div class="game_gatter_info"><span class="gatter_symbol">SNOT</span> <br> <span class="gatter_word"> Gatter</span></div>'
+] 
+
+
 let attempt = [0, [0, 0], 0,0];
 
 let moves =0;
@@ -317,7 +327,11 @@ function resetGameState(){
 function applyGatter(gatter){
 if(combination.length==0){
 	if(gatter_in_action){
-	let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!</p>';	
+	let images =createImageGatter();
+
+	let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
+	
+
 	}
 	
 
@@ -332,7 +346,6 @@ if(combination.length==0){
    	if(gatter_in_action=='swap_gatter' || gatter_in_action == 'snot_gatter'){
    		errors_committed = '<p class="tutorial_text centered_text">Wähle zwei Qubits!</p>';
    	}
-
    	else{
    	errors_committed = '<p class="tutorial_text centered_text">Wähle eine Zeile oder eine Spalte!</p>';
    	} 		
@@ -566,10 +579,12 @@ function checkUpSequence(){
          back_move.classList.remove('active');
          createPattern(level);
          buildGame(sequence);
-    	if(level ==2 || level ==4 || level==6){    		
+    	if(level ==2 || level ==4 || level==6){  
+
           checkTutorial();
           cleanTutorial();
           back_tutorial.classList.add('disabled');
+          to_level.classList.add('disabled');	
           fadeIn(tutorial_show);          
     	}
     	else{    			    
@@ -675,10 +690,10 @@ let info_table = document.querySelectorAll('.info_table');
 	for(let i=0; i<info_table.length; i++){
 	   info_table[i].style.display = 'none';
 	}
-document.getElementById('x_gatter_show').style.display = 'block';	
+
    if(level <=1){
    
-     
+     document.getElementById('x_gatter_show').style.display = 'block';	
 	}
 	else if(level < 3){
        document.getElementById('x_gatter_show').style.display = 'block';
@@ -884,7 +899,9 @@ function touchMove(e) {
 
 function touchEnd(e) {
 if(!gatter_in_action){
-let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
+let images =createImageGatter();
+
+let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
 notifyPlayer(empty_message);
 return false;
 }
@@ -930,6 +947,15 @@ let index = initial_id.charAt(2);
   e.preventDefault();
 };
 
+
+
+function wrongChoice(){
+
+let errors_committed = '<p class="tutorial_text centered_text">Wähle eine Zeile oder eine Spalte!</p>';
+notifyPlayer(errors_committed);
+
+}
+
 function checkUpUserAction(id, direction, startX, 
 	newX, startY, newY, size, prefix ){
 
@@ -942,19 +968,21 @@ let right_set= 	['0 0', '1 0', '2 0'];
       }
 	}
 	if(Math.abs(newY-startY) >80){
+		wrongChoice();
      return false;
 	}
 	if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){
         // alert(id==right_set[0])
 		if(Math.abs(newX-startX) <size){
+			wrongChoice();
          return false;
 	    }
 	     else{
-	     	// alert('66666');
 	    	return true;
 	    }
 	}
 	else{
+		// wrongChoice();
 		return false;
 	}
 }
@@ -968,10 +996,12 @@ let left_set= 	['0 2', '1 2', '2 2'];
 	}
 
    if(Math.abs(newY-startY) >80){
+   	wrongChoice();
      return false;
 	}
 if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
 		if(Math.abs(newX-startX) < size){
+			wrongChoice();
          return false;
 	    }
 	    else{
@@ -979,6 +1009,7 @@ if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
 	    }
 	}
 	else{
+		// wrongChoice();
 		return false;
 	}
 }
@@ -995,11 +1026,13 @@ else if(direction== 'up'){
 
 
 	if(Math.abs(newX-startX) >80){
+		wrongChoice();
      return false;
 	}
 	
 	if(id== up_set[0] || id== up_set[1] || id== up_set[2]){
 		if(Math.abs(newY-startY) < size){
+			wrongChoice();
          return false;
 	    }
 	     else{
@@ -1007,6 +1040,7 @@ else if(direction== 'up'){
 	    }
 	}
 	else{
+		// wrongChoice();
 		return false;
 	}
 }
@@ -1020,12 +1054,14 @@ else if(direction== 'up'){
 	}
 
 	 if(Math.abs(newX-startX) >80){
+	 	wrongChoice();
      return false;
 	}
 	
 	if(id== down_set[0] || id== down_set[1] || id== down_set[2]){
 		
 		if(Math.abs(newY-startY) < size){
+			wrongChoice();
          return false;
 	    }
 	     else{
@@ -1033,6 +1069,7 @@ else if(direction== 'up'){
 	    }
 	}
 	else{
+		// wrongChoice();
 		return false;
 	}
   }
@@ -1142,7 +1179,8 @@ let prefix;
 
 function touchEnd_interactive(e) {
 if(!interactive_gatter){
-let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
+let images =createImageGatter();
+let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
 notifyPlayer(empty_message);
 return false;	
 }
@@ -1382,7 +1420,8 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 
 function setClickedQuibits(){
 if(!interactive_gatter){
-let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
+let images =createImageGatter();
+let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;		
 notifyPlayer(empty_message);
 return false;	
 }
@@ -1456,18 +1495,29 @@ tutorialNotifications();
 
 function tutorialNotifications(){
 let encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 1“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 1 starten.</p>';
+
+console.log(current_tutor_index);
+
 if(current_tutor_index==1){
+
+	console.log('111');
   if(attempt[current_tutor_index][0] == 0){
+  	console.log('222');
     attempt[current_tutor_index][0] = 1;
+
      encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut, jetzt probiere den Gatter H1 anzuwenden!</p>';	
-    notifyPlayer(encourage_message);
+     notifyPlayer(encourage_message);
      attempt[current_tutor_index] =1;
+     document.getElementById('h_gatter1_interactive').classList.remove('active');
+     document.getElementById('h_gatter2_interactive').classList.add('game_gatter_interactive');
+     document.getElementById('h_gatter2_interactive').classList.remove('game_gatter_clicked',  'disabled');
    }
 
    else if(attempt[current_tutor_index][0] ==1){
+   	console.log('3333');
    	 if(attempt[current_tutor_index][1] ==0){
      let mess = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 3“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 3 starten</p>';	
-    notifyPlayer(mess);
+      notifyPlayer(mess);
       attempt[current_tutor_index][1] ==1;
 
       to_level.classList.remove('disabled');
@@ -1483,6 +1533,8 @@ if(current_tutor_index==1){
 // }
 
 if(attempt[current_tutor_index] == 0){
+
+	console.log('444444');
 attempt[current_tutor_index] =1;
 	if(current_tutor_index == 2){
      encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 5“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 5 starten.!</p>';	
@@ -1503,7 +1555,32 @@ setTimeout('resetGatter(interactive_gatter)', 1200);
 }
 
 
+function createImageGatter(){
+let set;
 
+	if(level ==0 || level ==1){
+      set = gatters_images[0];
+	}
+	else if(level ==2){
+      set = gatters_images[0]+ gatters_images[1];
+	}
+	else if(level ==3){
+      set = gatters_images[0]+ gatters_images[1]+ gatters_images[2];
+	}
+	else if(level ==4){
+      set = gatters_images[0]+ gatters_images[3];
+	}
+	else if(level ==5){
+      set = gatters_images[2]+ gatters_images[3];
+	}
+	else if(level ==6){
+      set = gatters_images[0]+ gatters_images[4];
+	}
+	else if(level ==7){
+      set = gatters_images[0]+ gatters_images[2] + gatters_images[4];
+	}
+	return set; 
+}
 
 
 

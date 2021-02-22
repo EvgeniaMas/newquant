@@ -850,7 +850,6 @@ min-height: 75vh;
 .container.main_container{
 height: 100%;
 }
-
 .centered_text{
 text-align: center!important;
 max-width: 80%;
@@ -858,19 +857,20 @@ margin: 0 auto;
 margin-bottom: 160px;
 font-size: 26px!important;
 }
-
+.centered_text.error_gatter{
+margin-bottom: 45px;
+}
+.images_block{
+margin-bottom: 100px;
+}
 .whie_arrow{
 display: inline-block;
 font-size: 40px!important;
 line-height: 40px;
 }
-
 .game_gatter_clicked.disabled{
 cursor: not-allowed;
 }
-
-
-
 @media (max-width: 1366px) {
 .col-md-12.desc_container{
 width: 66%;
@@ -896,13 +896,13 @@ padding-top: 7vh;
 table#game_target{
 margin-top: 20vh;
 }
-
-
 .centered_text{
 margin-bottom: 130px;
 font-size: 24px!important;
 }
-
+.centered_text.error_gatter{
+margin-bottom: 60px;	
+}
 }
 
 
