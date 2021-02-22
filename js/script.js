@@ -86,7 +86,7 @@ function fadeIn(el) {
 // click on game board handlings
 let combination = [];
 function overMoves(){
-  	let message =  '<p class="tutorial_text"> Du hast die maximale Anzahl von Zügen erreicht. Drücke auf "Rückgängig", um einen Zug zurückzuziehen oder starte den Level erneut.</p>';
+  	let message =  '<p class="tutorial_text centered_text"> Du hast die maximale Anzahl von Zügen erreicht. Drücke auf "Rückgängig", um einen Zug zurückzuziehen oder starte den Level erneut.</p>';
     modal_buttons.style.display = 'block';
     pass_modal.style.display = 'none';
     notifyPlayer(message);	
@@ -290,7 +290,7 @@ function resetGameState(){
 function applyGatter(gatter){
 if(combination.length==0){
 	if(gatter_in_action){
-	let empty_message = '<p class="tutorial_text">Du hast nichts gewählt!</p>';	
+	let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!</p>';	
 	}
 	
 
@@ -303,11 +303,11 @@ if(combination.length==0){
    else if(combination.length<2){
       let errors_committed;
    	if(gatter_in_action=='swap_gatter' || gatter_in_action == 'snot_gatter'){
-   		errors_committed = '<p class="tutorial_text">Wähle zwei Qubits!</p>';
+   		errors_committed = '<p class="tutorial_text centered_text">Wähle zwei Qubits!</p>';
    	}
 
    	else{
-   	errors_committed = '<p class="tutorial_text">Wähle eine Zeile oder eine Spalte!</p>';
+   	errors_committed = '<p class="tutorial_text centered_text">Wähle eine Zeile oder eine Spalte!</p>';
    	} 		
 
 	notifyPlayer(errors_committed);
@@ -327,7 +327,7 @@ if(combination.length==0){
 	switch (gatter) {
 	  case 'x_gatter':
 	if(active_line1 != active_line2 && active_column1 != active_column2 ){
-       	let wrong_message = '<p class="tutorial_text"> Wähle eine Spalte oder eine Zeile!</P>';
+       	let wrong_message = '<p class="tutorial_text centered_text"> Wähle eine Spalte oder eine Zeile!</P>';
 	notifyPlayer(wrong_message);
 	 modal_buttons.style.display = 'none';
     pass_modal.style.display = 'inline-block';
@@ -352,7 +352,7 @@ if(combination.length==0){
 	  case 'h_gatter1':
 
    if(active_line1 != active_line2 && active_column1 != active_column2 ){
-		let wrong_message = '<p class="tutorial_text">Wähle eine Spalte oder eine Zeile!</p>';
+		let wrong_message = '<p class="tutorial_text centered_text">Wähle eine Spalte oder eine Zeile!</p>';
 		notifyPlayer(wrong_message);
 		 modal_buttons.style.display = 'none';
 	    pass_modal.style.display = 'inline-block';
@@ -376,7 +376,7 @@ if(combination.length==0){
       break;
     	case 'h_gatter2':
    if(active_line1 != active_line2 && active_column1 != active_column2 ){
-    let wrong_message = '<p class="tutorial_text">Wähle eine Spalte oder eine Zeile!</p>';
+    let wrong_message = '<p class="tutorial_text centered_text">Wähle eine Spalte oder eine Zeile!</p>';
 	notifyPlayer(wrong_message);
 		 modal_buttons.style.display = 'none';
     pass_modal.style.display = 'inline-block';
@@ -465,7 +465,7 @@ let gatterItems = document.querySelectorAll('.game_gatter'),
              		snotGatter();
              	}
             else if(combination.length==1){
-           	let two_message = '<p class="tutorial_text"> Wähle zwei Qubits!</p>'
+           	let two_message = '<p class="tutorial_text centered_text"> Wähle zwei Qubits!</p>'
              	notifyPlayer(two_message);
 	            modal_buttons.style.display = 'none';
                 pass_modal.style.display = 'inline-block';
@@ -546,7 +546,7 @@ function checkUpSequence(){
           fadeIn(tutorial_show);          
     	}
     	else{    			    
-    	let win = '<p class="tutorial_title_text small">Glückwunsch</p><p class="tutorial_text">Glückwunsch! Du hast dieses Level erfolgreich gelöst!</p>';    	
+    	let win = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Glückwunsch! Du hast dieses Level erfolgreich gelöst!</p>';    	
         notifyPlayer(win);
         modal_buttons.style.display = 'none';
     	pass_modal.style.display = 'inline_block';  
@@ -745,7 +745,7 @@ for(let i=0; i<3; i++){
       combination.unshift(id); 
     }
    setTimeout('applyHorizontalGatter()', 1000); 
-   // setTimeout('resetGatter()', 1200);
+   // setTimeout('resetGatter(gatter_in_action)', 1200);
 
 }
 function handleColumn(active_column){
@@ -755,12 +755,12 @@ for(let i=0; i<3; i++){
         document.getElementById(id).classList.add('active');
       } 
       setTimeout('applyVerticalGatter()', 1000); 
-      // setTimeout('resetGatter()', 1200);	
+      // setTimeout('resetGatter(gatter_in_action)', 1200);	
 }
 
 
-function resetGatter(){
-document.getElementById(gatter_in_action).classList.remove('active');
+function resetGatter(id){
+document.getElementById(id).classList.remove('active');
 gatter_in_action = null;
 
 }
@@ -828,7 +828,7 @@ function touchMove(e) {
 
 function touchEnd(e) {
 if(!gatter_in_action){
-let empty_message = '<p class="tutorial_text">Du hast nichts gewählt!</p>';	
+let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
 notifyPlayer(empty_message);
 return false;
 }
@@ -996,11 +996,39 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 
 
 
-// Swipes
+// Swipes interact
+
+let inter_combination = [];
 let initialX_interactive = null;
 let initialY_interactive = null;
 let current_direction_interactive; 
 let initial_interctive_id;
+let current_tutor_index = null;
+
+function getPrefix(){
+	let prefix;
+	if(level <2){
+    prefix = '_first';
+    current_tutor_index = 0;
+	}
+
+    else if(level ==2 || level ==3){
+ 	prefix = '_second';
+ 	current_tutor_index = 1;
+	}
+	else if(level ==4){
+      prefix = '_third';
+      current_tutor_index = 2;
+	}
+    else if(level ==5){
+      prefix = '_four';
+      current_tutor_index = 3;
+    }
+
+    return prefix;
+
+}
+
 
 function touchStart_interactive(e) {
 let initial_interctive;
@@ -1046,17 +1074,24 @@ function touchMove_interactive(e) {
     } else {   
       current_direction_interactive = 'down';
     }  
-  } 
-
-
-
-  
+  }  
   e.preventDefault();
 };
-let prefix;
+
 // [[3,2,1]  3 прозрачный, 2 синий, 1 серий
 let interact_combination = [[2,3,3], [1,2,2], [1,3,3]];
+
+let interactive_gatter;
+let prefix;
+
 function touchEnd_interactive(e) {
+if(!interactive_gatter){
+let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
+notifyPlayer(empty_message);
+return false;	
+}
+
+
 let quibits_containers = document.querySelectorAll('.interactive');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
 let int_size = width_quibits.width*2;
@@ -1065,19 +1100,8 @@ let changedY = e.changedTouches[0].pageY;
 
 let part;
 let position;
-	if(level <2){
-    prefix = '_first';
-	}
 
-    else if(level ==2 || level ==3){
- 	prefix = '_second';
-	}
-	else if(level ==4){
-      prefix = '_third';
-	}
-    else if(level ==5){
-      prefix = '_four';
-    }
+prefix =  getPrefix();
 
 
 let user_check_up = checkUpUserAction(initial_interctive_id, current_direction_interactive, 
@@ -1089,11 +1113,6 @@ return false;
   initialX_interactive = null;
   initialY_interactive = null; 
 
-
-// let empty_message = '<p class="tutorial_text">Du hast nichts gewählt!</p>';	
-// notifyPlayer(empty_message);
-
-	
 
 let final;
 let elements = e.target || window.event;   
@@ -1124,17 +1143,18 @@ let elements = e.target || window.event;
   	  }		    	
 	}
 
-	applyInteractMechanics(part, position, 'x_gatter', prefix);
+
+
+	applyInteractMechanics(part, position, interactive_gatter, prefix);
   
   e.preventDefault();
 };
 
-function applyInteractMechanics(part, position, active_gatter, prefix){
-
+function applyInteractMechanics(part, position, interactive_gatter, prefix){
 	if(position== 'horizontal'){
 
-		 switch (active_gatter) {
-			  case 'x_gatter':	
+		 switch (interactive_gatter) {
+			  case 'x_gatter_interactive':	
 			for(let i=0; i<3; i++){
 				if(interact_combination[part][i] ==1){
 				  interact_combination[part][i] =2; 	
@@ -1144,7 +1164,7 @@ function applyInteractMechanics(part, position, active_gatter, prefix){
 				} 
 			}
            break;
-	  case 'h_gatter1':   
+	  case 'h_gatter1_interactive':   
 	for(let i=0; i<3; i++){
 		if(interact_combination[part][i] ==1){
 		  interact_combination[part][i] =3; 	
@@ -1154,7 +1174,7 @@ function applyInteractMechanics(part, position, active_gatter, prefix){
 		} 
 	  }
       break;
-    	case 'h_gatter2':   
+    	case 'h_gatter2_interactive':   
 	for(let i=0; i<3; i++){	 		 
 		if(interact_combination[part][i] ==1 ){	
 		  interact_combination[part][i] = 3;
@@ -1168,8 +1188,8 @@ function applyInteractMechanics(part, position, active_gatter, prefix){
 	 }
   
 else{
-	 switch (active_gatter) {
-	 case 'x_gatter':	
+	 switch (interactive_gatter) {
+	 case 'x_gatter_interactive':	
 
 		   for(let i=0; i<3; i++){ 
 		    if(interact_combination[i][part] ==1){
@@ -1181,7 +1201,7 @@ else{
          }
 
 	    break;
-	  case 'h_gatter1':
+	  case 'h_gatter1_interactive':
 
    		   for(let i=0; i<3; i++){ 
 		    if(interact_combination[i][part] ==1){
@@ -1192,7 +1212,7 @@ else{
             }  
          }
       break;
-    	case 'h_gatter2':  
+    	case 'h_gatter2_interactive':  
 		   for(let i=0; i<3; i++){ 
 		    if(interact_combination[i][part] ==1 ){
 			  interact_combination[i][part] =3; 	
@@ -1206,29 +1226,7 @@ else{
 
   }       
 
-// swapGatter(){
-	// let active_line1 = combination[0].charAt(0);
-	// let active_column1 = combination[0].charAt(2);
-	// let active_line2 = combination[1].charAt(0);
-	// let active_column2 = combination[1].charAt(2);
-	// let first_swap = working_sequence[active_line1][active_column1];
-	// let second_swap  = working_sequence[active_line2][active_column2];
-	// working_sequence[active_line1][active_column1] = second_swap;
-	// working_sequence[active_line2][active_column2] = first_swap;
-   // checkUpSequence();
-
-// }
-// function snotGatter(){
-// 	let active_line1 = combination[0].charAt(0);
-// 	let active_column1 = combination[0].charAt(2);
-// 	let active_line2 = combination[1].charAt(0);
-// 	let active_column2 = combination[1].charAt(2);
-// 	let control = working_sequence[active_line2][active_column2];
-// 	working_sequence[active_line1][active_column1] = control; 
-
-
 setTimeout('showInteractResult(prefix)', 1000);
-
 }
 
 
@@ -1251,7 +1249,7 @@ let table = document.createElement('table'),
 			
 
 			cell.setAttribute('id' , i + " " + j+ prefix);				
-				 cell.onclick = cellClick;
+				 // cell.onclick = cellClick;
 				let quant = interact_combination[i][j];
 				if(quant==1){
                   quant = '<div class="quants white_quant"></div>';
@@ -1269,8 +1267,6 @@ let table = document.createElement('table'),
 	}
 
 	container.innerHTML = '';
-	 // if(container.childNodes.length == 1)
-		// container.removeChild(container.firstChild);	
 	container.appendChild(table);
 
 
@@ -1284,6 +1280,126 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 
 
 
+
+
+
+let game_gatter_interactive = document.querySelectorAll('.game_gatter_interactive');
+game_gatter_interactive.forEach(gatter => {
+gatter.addEventListener('click', interactiveGatter);
+});
+
+function interactiveGatter(e){
+let gatter = e.target;
+if(gatter.classList.contains('active')){
+	gatter.classList.remove('active');
+	interactive_gatter = null;
+}
+else{
+  gatter.classList.add('active');
+  interactive_gatter =  gatter.getAttribute('id');
+ }
+
+quibits_trainfirst_container = document.querySelectorAll('.interactive');
+
+
+
+ if(interactive_gatter == 'swap_gatter_interactive' || 
+ 	interactive_gatter == 'snot_gatter_interactive '){
+quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+});
+ }
+ else{
+quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
+quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
+quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
+});
+ }
+
+}
+
+
+
+function setClickedQuibits(){
+if(!interactive_gatter){
+let empty_message = '<p class="tutorial_text centered_text">Du hast das Gatter nicht gewählt!!</p>';	
+notifyPlayer(empty_message);
+return false;	
+}
+
+
+let el = event.target || window.event;   
+		if(el.classList.contains('quants')){
+		  el = event.target.parentNode;
+		}
+
+
+		if(el.classList.contains('active')){
+		  el.classList.remove('active');		 
+		  let id = el.getAttribute('id');
+		  if(inter_combination.length>1){
+		  	
+		  	let aсtive_index = inter_combination.indexOf(id);
+        
+             if(aсtive_index){
+		  	  inter_combination.splice(active_index, 1); }
+		  }
+		  else{	
+		  	inter_combination = [];
+		  }    
+	
+		}
+		else{
+		  el.classList.add('active');		
+		let index_in_collection = el.getAttribute('id');	
+		inter_combination.unshift(index_in_collection);
+		let active_line = el.childNodes[0].id.charAt(0);
+		let active_quilbit = el.childNodes[0].id.charAt(2);
+
+       if(inter_combination.length==2){	
+
+       prefix =  getPrefix();
+
+       if(interactive_gatter == 'swap_gatter_interactive'){
+
+       		let active_line1_swap = inter_combination[0].charAt(0);
+	let active_column1_swap = inter_combination[0].charAt(2);
+	let active_line2_swap = inter_combination[1].charAt(0);
+	let active_column2_swap = inter_combination[1].charAt(2);
+	let first_swap = interact_combination[active_line1_swap][active_column1_swap];
+	let second_swap  = interact_combination[active_line2_swap][active_column2_swap];
+	interact_combination[active_line1_swap][active_column1_swap] = second_swap;
+	interact_combination[active_line2_swap][active_column2_swap] = first_swap;
+     inter_combination = [];
+
+
+
+       }
+      else if(interactive_gatter== 'snot_gatter_interactive ')	{
+
+	let active_line1_snot = inter_combination[0].charAt(0);
+	let active_column1_snot = inter_combination[0].charAt(2);
+	let active_line2_snot = inter_combination[1].charAt(0);
+	let active_column2_snot = inter_combination[1].charAt(2);
+	let control = interact_combination[active_line2_snot][active_column2_snot];
+	interact_combination[active_line1_snot][active_column1_snot] = control; 
+	inter_combination = [];
+
+       }
+       setTimeout('showInteractResult(prefix)', 1000);
+
+		}
+       }
+
+if(attempt[current_tutor_index] == 0){
+let encourage_message = '<p class="tutorial_text centered_text">Super! Du hast das gemacht!</p>';	
+notifyPlayer(encourage_message);
+attempt[current_tutor_index] ==1	
+}
+
+// setTimeout('resetGatter(interactive_gatter)', 1200);
+}
 
 
 
