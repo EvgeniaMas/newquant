@@ -483,7 +483,7 @@ let gatterItems = document.querySelectorAll('.game_gatter'),
     single_gatter = gatterItems[index_gatter];
     let active_gatter;
     single_gatter.addEventListener('click', function (event) {
-    	if(event.target.classList.contains('gatter_symbol')){
+    	if(event.target.classList.contains('gatter_symbol') || event.target.classList.contains('gatter_word')){
            active_gatter = event.target.closest('.game_gatter');
     	}
     	else{
@@ -548,7 +548,7 @@ function cleanTutorial(){
      next_tutorial.style.display = 'none';
      to_level.style.display = 'inline-block';
      let to_current = level +1;		
-	 to_level.innerHTML = '<span>Zu Level' + to_current + '&rarr;</span>';
+	 to_level.innerHTML = '<span>Zu Level' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
   }
   else{
     next_tutorial.style.display = 'inline-block';
@@ -737,7 +737,7 @@ next_tutorial.addEventListener('click', function(e){
 		let to_current = level +1;
 
 		
-		to_level.innerHTML = '<span>Zu Level' + to_current + '&rarr;</span>';
+		to_level.innerHTML = '<span>Zu Level' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
 
 		if(index>0){
 		back_tutorial.classList.remove('disabled'); 		
@@ -816,7 +816,7 @@ for(let i=0; i<3; i++){
       combination.unshift(id); 
     }
    setTimeout('applyHorizontalGatter()', 1000); 
-   // setTimeout('resetGatter(gatter_in_action)', 1200);
+   setTimeout('resetGatter(gatter_in_action)', 1200);
 
 }
 function handleColumn(active_column){
@@ -826,14 +826,14 @@ for(let i=0; i<3; i++){
         document.getElementById(id).classList.add('active');
       } 
       setTimeout('applyVerticalGatter()', 1000); 
-      // setTimeout('resetGatter(gatter_in_action)', 1200);	
+      setTimeout('resetGatter(gatter_in_action)', 1200);	
 }
 
 
 function resetGatter(id){
 document.getElementById(id).classList.remove('active');
 gatter_in_action = null;
-
+interactive_gatter = null;
 }
 
 // Swipes
@@ -912,11 +912,12 @@ return false;
 
 let quibits_containers = document.querySelectorAll('.quibits_container');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
-let set_quibit = width_quibits.width*2;
+let set_quibit = width_quibits.width*1.75;
+console.log(set_quibit + '   Размер кубита в игре');
 let changedX = e.changedTouches[0].pageX;
 let changedY = e.changedTouches[0].pageY;
 
-console.log(changedY);
+// console.log(changedY);
 let user_check_up = checkUpUserAction(initial_id, current_direction, 
 	initialX,changedX, initialY, changedY, set_quibit, false);
 
@@ -1188,16 +1189,12 @@ return false;
 
 let quibits_containers = document.querySelectorAll('.interactive');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
-let int_size = width_quibits.width*2;
+let int_size = width_quibits.width*1.6;
 let changedX = e.changedTouches[0].pageX;
 let changedY = e.changedTouches[0].pageY;
-
 let part;
 let position;
-
 prefix =  getPrefix();
-
-
 let user_check_up = checkUpUserAction(initial_interctive_id, current_direction_interactive, 
 	initialX_interactive, changedX, initialY_interactive, changedY, int_size, prefix);
 
@@ -1380,13 +1377,14 @@ quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 
 
 
-let game_gatter_interactive = document.querySelectorAll('.game_gatter_interactive');
-game_gatter_interactive.forEach(gatter => {
-gatter.addEventListener('click', interactiveGatter);
-});
+// let game_gatter_interactive = document.querySelectorAll('.game_gatter_interactive');
+// game_gatter_interactive.forEach(gatter => {
+// gatter.addEventListener('click', interactiveGatter);
+// });
 
-function interactiveGatter(e){
-let gatter = e.target;
+function interactiveGatter(id){
+
+let gatter = document.getElementById(id);
 if(gatter.classList.contains('active')){
 	gatter.classList.remove('active');
 	interactive_gatter = null;
@@ -1494,7 +1492,7 @@ tutorialNotifications();
 }
 
 function tutorialNotifications(){
-let encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 1“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 1 starten.</p>';
+let encourage_message; 
 
 console.log(current_tutor_index);
 
@@ -1533,25 +1531,24 @@ if(current_tutor_index==1){
 // }
 
 if(attempt[current_tutor_index] == 0){
-
-	console.log('444444');
-attempt[current_tutor_index] =1;
 	if(current_tutor_index == 2){
      encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 5“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 5 starten.!</p>';	
 	}
 	else if(current_tutor_index ==3){
 		encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Unser Zielqubitist nun schwarz geworden, hat also den Zustand geändert. Ist unser Kontrollqubit 0, so ändert sich nichts am Zielqubit. Wiederholen CNOT Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 7“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 7 starten.</p>';	
 	}
-
-}
-
+	else{
+	  encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 1“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 1 starten.</p>';	
+	}
+   attempt[current_tutor_index] =1;
 
   setTimeout(function() {
         notifyPlayer(encourage_message); 
   }, 1000);
 
-to_level.classList.remove('disabled');
-setTimeout('resetGatter(interactive_gatter)', 1200);
+   to_level.classList.remove('disabled');
+  }
+  setTimeout('resetGatter(interactive_gatter)', 1200);
 }
 
 
@@ -1584,5 +1581,11 @@ let set;
 
 
 
+document.addEventListener('click', function(e) {
+       if (e.target.closest('.game_gatter_interactive')) {
+          let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
 
+          interactiveGatter(id);
+        }
+     });
 

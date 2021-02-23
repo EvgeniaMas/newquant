@@ -77,14 +77,6 @@ max-width: 1920px;
 position: relative;
 /*min-height: 100vh;*/
 }
-.col-md-4{
-float: left;
-width: 33.33333333%;
-}
-.col-md-8 {
-float: left;	
-width: 66.66666667%;
-}
 .col-md-6 {
 width: 50%;
 float: left;
@@ -182,14 +174,10 @@ left: 0;
 cursor: pointer;
 opacity: 1;
 }
-
 #back_move_modal{
 margin-right: 20px;	
 }
-
-
 .game_button.blue{
-
 border: 2px solid #fff;
 color: #fff;	
 }
@@ -247,7 +235,6 @@ margin-left: 20px;
 margin: auto;
 max-width: 90%;
 }
-
 #info_section{
 position: absolute;
 z-index: 18;
@@ -270,7 +257,6 @@ height: 84vh;
 -moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 border: 2px solid #00a6d5;
-
 }
 .game_gatter_info{
 margin-bottom: 20px;	
@@ -466,7 +452,7 @@ margin:0;
 }
 #notification_table{
 position: absolute;
-top: 55%;
+top: 51%;
 right: 24%;
 }
 .info_quants{
@@ -690,13 +676,10 @@ outline: none;
 display: inline-block;
 background-color: transparent;
 }
-
 .game_gatter_info{
 cursor: default;
 padding: 10px 30px;
 }
-
-
 .game_gatter.active,
 .game_gatter_clicked.active,
 .game_gatter_interactive.active{
@@ -729,9 +712,6 @@ opacity: 0.9;
 .game_gatter_interactive.active:hover{
 opacity: 0.8;
 }
-
-
-
 #go_modal, #modal_buttons{
 display: none;	
 }
@@ -871,9 +851,26 @@ line-height: 40px;
 .game_gatter_clicked.disabled{
 cursor: not-allowed;
 }
+.arrow_button{
+display: inline-block;
+max-width: 35px;
+}
 @media (max-width: 1366px) {
+#notification_table{
+top: 47%;
+}
+
+
+.quants {
+width: 4.4vw;
+height: 4.4vw;
+}
 .col-md-12.desc_container{
 width: 66%;
+}
+.state_quibits{
+display: block;
+max-width: 110px;
 }
 p.tutorial_title_text {
 margin-bottom: 30px;
@@ -904,12 +901,86 @@ font-size: 24px!important;
 margin-bottom: 60px;	
 }
 }
-
-
-
-
-
+@media (max-width: 1024px) {
+.col-md-12.desc_container{
+max-width: 700px;
+max-height: 379px;
+}
+.game_rules_text {
+font-size: 14px;
+line-height: 16px;
+padding: 16px;
+}
+}
 @media (max-width: 768px) {
+html, body{
+overflow-y: scroll;
+height: auto;
+}
+#notification_table{
+display: none;
+}
+#info_section {
+padding: 20px;
+width: 95%;
+height: 100%;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+border: none;
+}
+.info_table_desc>tbody>tr>td {
+display: block;
+}
+.info_text {
+font-size: 16px;
+line-height: 19px;
+margin-left: 0;
+}
+#information,
+#back_move {
+position: relative;
+float: none;
+margin: 0 auto;
+margin-bottom: 20px;
+margin-top: 20px;
+font-size: 21px;
+}
+.back_icon {
+max-height: 19px;
+}
+table#game_target {
+margin-top: 50px;
+}
+.interactive>.quants, .static_table>.quants {
+width: 7vw;
+height: 7vw;
+}
+.col-md-12.desc_container{
+max-width: 300px;
+max-height: 151px;
+}
+.col-md-6 {
+width: 100%;
+float: none;
+}
+.pe-7s-close:before {
+font-size: 60px;
+}
+.game_rules_text.one,
+.game_rules_text.two,
+.game_rules_text.three,
+.game_rules_text.four,
+.game_rules_text.five,
+.game_rules_text.six,
+.game_rules_text.seven
+{
+position: relative;
+left: 0;
+right: 0;
+top: 100%;
+margin: auto;
+}
 .top_blocks{
 position: relative;
 }
@@ -949,21 +1020,35 @@ max-width: 95%;
 z-index: 7;
 }
 #notification_message {
-padding-top: 220px;
+padding-top: 20px;
 text-align: center;
 font-size: 25px;
 margin-top: 16px;
 margin-bottom: 16px;
 }
 .game_button {
-font-size: 18px;
-padding: 10px 20px;
+font-size: 21px;
+padding: 0;
+line-height: 70px;
 }
 .game_gatter,
 .game_gatter_clicked,
 .game_gatter_interactive {
-font-size: 18px;
-padding: 20px 16px;
+font-size: 16px;
+padding: 20px 36px;
+}
+.button_block {
+text-align: center;
+padding-top: 20px;
+}
+.game_button>i:before {
+line-height: 40px;
+}
+.pe-7s-help1:before {
+font-size: 30px;
+}
+.game_gatter{
+margin-bottom: 20px;
 }
 p.tutorial_title_text {
 margin-bottom: 30px;
@@ -975,5 +1060,22 @@ p.tutorial_text {
 margin-bottom: 30px;
 font-size: 19px;
 line-height: 24px;
+}
+.tutorial_page {
+padding-top: 20px;
+padding-top: 20px;
+width: 95%;
+height: 100%;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+border: none;
+margin-top: 20px;
+}
+.col-md-6{
+margin-top: 20px;
+}
+.arrow_button {
+max-width: 20px;
 }
 }
