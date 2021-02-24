@@ -532,7 +532,7 @@ text-align:center;
 vertical-align: middle;				
 }
 #box td {
-border:solid 2px #000;
+border:solid 1px #000;
 border-radius: 7px;
 text-align:center;
 -webkit-transition: all 0.7s ease-out;
@@ -552,7 +552,7 @@ background-color: rgba(255,255,255, 0.4);
 -webkit-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
 -moz-box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
 box-shadow: 0px 0px 14px 12px rgba(38, 145, 254, 0.2);
-border:solid 2px #00a6d5;
+border:solid 1px #00a6d5;
 }
 .interactive,
 .static_table{
@@ -843,17 +843,12 @@ margin-bottom: 45px;
 .images_block{
 margin-bottom: 100px;
 }
-.whie_arrow{
-display: inline-block;
-font-size: 40px!important;
-line-height: 40px;
-}
 .game_gatter_clicked.disabled{
 cursor: not-allowed;
 }
 .arrow_button{
 display: inline-block;
-max-width: 35px;
+max-width: 30px;
 }
 @media (max-width: 1366px) {
 #notification_table{

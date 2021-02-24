@@ -94,6 +94,7 @@ function fadeIn(el) {
 		el.style.opacity = opacity;     
 		opacity += opacity * 0.1;   
 	}, 10);	
+	
 }
 // click on game board handlings
 let combination = [];
@@ -146,7 +147,9 @@ function cellClick(event) {
 		  else if(gatter_in_action == 'snot_gatter'){
               snotGatter();
 		  }
-		   setTimeout('resetGatter(gatter_in_action)', 1200);
+		   // alert("2222");
+       
+		    // setTimeout('resetGatter(gatter_in_action)', 1200);
 
        }
 
@@ -228,6 +231,7 @@ function buildGame(array){
         quib_container.addEventListener('touchmove',touchMove);
         quib_container.addEventListener('touchend', touchEnd);
       });
+     setTimeout('resetGatter(gatter_in_action)', 1200);
 }
 // back move handlings
 function backMoveRun(){
@@ -492,7 +496,9 @@ let gatterItems = document.querySelectorAll('.game_gatter'),
     	
     	  
           if(active_gatter.classList.contains('active')){
-             	applyGatter(gatter_in_action);
+          	active_gatter.classList.remove('active');
+          	gatter_in_action = null;
+             	// applyGatter(gatter_in_action);
           }
           else{
        active_gatter.classList.add('active');
@@ -522,14 +528,20 @@ let index = 0;
 let tutorial = document.querySelectorAll('.tutorial_block1');
 let index_length = tutorial.length;
 function checkTutorial(){
+	// alert('Проверяю ' + level);
    if(level <=1){
      tutorial = document.querySelectorAll('.tutorial_block1');	
 	}
+
 	else if(level < 3){
-      tutorial = document.querySelectorAll('.tutorial_block2');	
+      tutorial = document.querySelectorAll('.tutorial_block2');
+      interactive_gatter = 'h_gatter1_interactive';	
+      // alert(interactive_gatter);
+            
 	}
 	else if(level < 5){
-      tutorial = document.querySelectorAll('.tutorial_block3');		
+      tutorial = document.querySelectorAll('.tutorial_block3');
+
 	}
 	else if(level >5){
       tutorial = document.querySelectorAll('.tutorial_block4');		
@@ -816,7 +828,8 @@ for(let i=0; i<3; i++){
       combination.unshift(id); 
     }
    setTimeout('applyHorizontalGatter()', 1000); 
-   setTimeout('resetGatter(gatter_in_action)', 1200);
+   //  alert("4444");
+   // setTimeout('resetGatter(gatter_in_action)', 1200);
 
 }
 function handleColumn(active_column){
@@ -825,8 +838,9 @@ for(let i=0; i<3; i++){
         combination.unshift(id);
         document.getElementById(id).classList.add('active');
       } 
+       // alert("5555");
       setTimeout('applyVerticalGatter()', 1000); 
-      setTimeout('resetGatter(gatter_in_action)', 1200);	
+      // setTimeout('resetGatter(gatter_in_action)', 1200);	
 }
 
 
@@ -834,6 +848,14 @@ function resetGatter(id){
 document.getElementById(id).classList.remove('active');
 gatter_in_action = null;
 interactive_gatter = null;
+
+if(document.getElementById('double_gatter_block').classList.contains('active')){
+		if(document.getElementById('h_gatter1_interactive').classList.contains('active')){
+			interactive_gatter = 'h_gatter1_interactive';
+		}
+	}
+
+
 }
 
 // Swipes
@@ -850,7 +872,6 @@ function touchStart(e) {
   }
   initialX = e.touches[0].clientX;
   initialY = e.touches[0].clientY;
-
   el = e.target || window.event;   
 	if(el.classList.contains('quants')){
 	   initial = e.target.parentNode;
@@ -859,9 +880,6 @@ function touchStart(e) {
 	   initial = e.target;
 	}
 	initial_id =initial.getAttribute('id'); 
-
-	
-
 };
  
 function touchMove(e) {
@@ -877,7 +895,6 @@ function touchMove(e) {
   let currentY = e.touches[0].clientY; 
   diffX = initialX - currentX;
   diffY = initialY - currentY;
-// console.log('Вертикальное '+ initialY +  ' ' +  'Текущее ' + currentY + 'Разница' + diffY);
  
   if (Math.abs(diffX) > Math.abs(diffY)) {
     if (diffX > 0) { 
@@ -913,11 +930,9 @@ return false;
 let quibits_containers = document.querySelectorAll('.quibits_container');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
 let set_quibit = width_quibits.width*1.75;
-console.log(set_quibit + '   Размер кубита в игре');
 let changedX = e.changedTouches[0].pageX;
 let changedY = e.changedTouches[0].pageY;
 
-// console.log(changedY);
 let user_check_up = checkUpUserAction(initial_id, current_direction, 
 	initialX,changedX, initialY, changedY, set_quibit, false);
 
@@ -1075,13 +1090,7 @@ else if(direction== 'up'){
 	}
   }
 }
-
-
-
-
 let quibits_trainfirst_container = document.querySelectorAll('.interactive');
-
-
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
 quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
@@ -1110,7 +1119,7 @@ function getPrefix(){
  	prefix = '_second';
  	current_tutor_index = 1;
 	}
-	else if(level ==4){
+	else if(level ==0){
       prefix = '_third';
       current_tutor_index = 2;
 	}
@@ -1172,19 +1181,23 @@ function touchMove_interactive(e) {
   e.preventDefault();
 };
 
-// [[3,2,1]  3 прозрачный, 2 синий, 1 серий
 let interact_combination = [[2,3,3], [1,2,2], [1,3,3]];
-
 let interactive_gatter;
 let prefix;
 
 function touchEnd_interactive(e) {
 if(!interactive_gatter){
-let images =createImageGatter();
-let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
-notifyPlayer(empty_message);
-return false;	
+	let images = createImageGatterInteractive();
+	let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
+	notifyPlayer(empty_message);
+    return false;	
 }
+
+if(interactive_gatter == 'swap_gatter_interactive' || 
+	 	interactive_gatter == 'snot_gatter_interactive '){
+return false;
+}
+
 
 
 let quibits_containers = document.querySelectorAll('.interactive');
@@ -1233,11 +1246,6 @@ let elements = e.target || window.event;
   	    document.getElementById(id_col).classList.add('active');
   	  }		    	
 	}
-
-
-	
-
-
 	applyInteractMechanics(part, position, interactive_gatter, prefix);
 
    tutorialNotifications();
@@ -1319,14 +1327,24 @@ else{
         }
 
   }       
-
+console.log(interact_combination);
 setTimeout('showInteractResult(prefix)', 1000);
 }
 
 
 function showInteractResult(prefix){
+console.log(prefix);
+console.log(interact_combination);
+
+
 let id = 'container' + prefix;
+
+console.log(id);
 let container = document.getElementById(id);
+
+
+	console.log(container);
+
 let table = document.createElement('table'),
 		tbody = document.createElement('tbody');
 		let tables_id = 'train'+ prefix;	
@@ -1360,10 +1378,14 @@ let table = document.createElement('table'),
 		tbody.appendChild(row);	
 	}
 
+	console.log(table);
+
 	container.innerHTML = '';
 	container.appendChild(table);
 
 
+setTimeout('resetGatter(interactive_gatter)', 1200);
+
 quibits_trainfirst_container = document.querySelectorAll('.interactive');
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
@@ -1371,47 +1393,37 @@ quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive)
 quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 });
 }
-
-
-
-
-
-
-// let game_gatter_interactive = document.querySelectorAll('.game_gatter_interactive');
-// game_gatter_interactive.forEach(gatter => {
-// gatter.addEventListener('click', interactiveGatter);
-// });
-
 function interactiveGatter(id){
+	let gatter = document.getElementById(id);
+	if(gatter.classList.contains('active')){
+		gatter.classList.remove('active');
+		interactive_gatter = null;
+	}
+	else{
+	  gatter.classList.add('active');
+	  interactive_gatter =  gatter.getAttribute('id');
+	 }
 
-let gatter = document.getElementById(id);
-if(gatter.classList.contains('active')){
-	gatter.classList.remove('active');
-	interactive_gatter = null;
-}
-else{
-  gatter.classList.add('active');
-  interactive_gatter =  gatter.getAttribute('id');
+	 console.log(interactive_gatter);
+
+
+	quibits_trainfirst_container = document.querySelectorAll('.interactive');
+
+	 if(interactive_gatter == 'swap_gatter_interactive' || 
+	 	interactive_gatter == 'snot_gatter_interactive '){
+	 	
+	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+	
+	});
+	 }
+	 else{
+	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
+	quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
+	quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
+	});
  }
-
-quibits_trainfirst_container = document.querySelectorAll('.interactive');
-
-
-
- if(interactive_gatter == 'swap_gatter_interactive' || 
- 	interactive_gatter == 'snot_gatter_interactive '){
-quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
-});
- }
- else{
-quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
-quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
-quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
-});
- }
-
 }
 
 
@@ -1423,7 +1435,6 @@ let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast
 notifyPlayer(empty_message);
 return false;	
 }
-
 
 let el = event.target || window.event;   
 		if(el.classList.contains('quants')){
@@ -1493,42 +1504,47 @@ tutorialNotifications();
 
 function tutorialNotifications(){
 let encourage_message; 
+if(current_tutor_index == 1){
 
-console.log(current_tutor_index);
-
-if(current_tutor_index==1){
-
-	console.log('111');
+	// console.log('current_tutor_index ' + current_tutor_index);
+	// console.log(attempt[current_tutor_index]);
   if(attempt[current_tutor_index][0] == 0){
-  	console.log('222');
+ //  	console.log('Проверяю первый');
+ //  	console.log('current_tutor_index ' + current_tutor_index);
+	// console.log(attempt[current_tutor_index]);
     attempt[current_tutor_index][0] = 1;
 
      encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut, jetzt probiere den Gatter H1 anzuwenden!</p>';	
      notifyPlayer(encourage_message);
-     attempt[current_tutor_index] =1;
-     document.getElementById('h_gatter1_interactive').classList.remove('active');
-     document.getElementById('h_gatter2_interactive').classList.add('game_gatter_interactive');
+     attempt[current_tutor_index][0] =1;
+     document.getElementById('h_gatter1_interactive').classList.remove('active', 'game_gatter_interactive');
+     document.getElementById('h_gatter1_interactive').classList.add('game_gatter_clicked',  'disabled');
+     document.getElementById('h_gatter2_interactive').classList.add('game_gatter_interactive', 'active');
      document.getElementById('h_gatter2_interactive').classList.remove('game_gatter_clicked',  'disabled');
-   }
+     interactive_gatter = 'h_gatter2_interactive';	      
+	}
+  // }
 
-   else if(attempt[current_tutor_index][0] ==1){
-   	console.log('3333');
-   	 if(attempt[current_tutor_index][1] ==0){
+   else if(attempt[current_tutor_index][1] == 0){
+   	// console.log('Проверяю второй');
+   	// console.log('current_tutor_index ' + current_tutor_index);
+	// console.log(attempt[current_tutor_index]);
+   	
      let mess = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 3“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 3 starten</p>';	
       notifyPlayer(mess);
-      attempt[current_tutor_index][1] ==1;
-
+      attempt[current_tutor_index][1] =1;
       to_level.classList.remove('disabled');
-
-
-       setTimeout('resetGatter(interactive_gatter)', 1200);
-
-     }
-   	 }
+      document.getElementById('h_gatter2_interactive').classList.remove('active');
+    
+     document.getElementById('h_gatter1_interactive').classList.remove('game_gatter_clicked',  'disabled');
+     document.getElementById('h_gatter1_interactive').classList.add('game_gatter_interactive');
+      alert("111");
+      // setTimeout('resetGatter(interactive_gatter)', 1200);   
+   	 // }
    	 return false;
    }
 
-// }
+ }
 
 if(attempt[current_tutor_index] == 0){
 	if(current_tutor_index == 2){
@@ -1544,11 +1560,18 @@ if(attempt[current_tutor_index] == 0){
 
   setTimeout(function() {
         notifyPlayer(encourage_message); 
-  }, 1000);
+  }, 2500);
 
    to_level.classList.remove('disabled');
   }
-  setTimeout('resetGatter(interactive_gatter)', 1200);
+// alert(interactive_gatter);
+//   if(interactive_gatter== 'snot_gatter_interactive' || interactive_gatter== 'swap_gatter_interactive'){
+//  alert("77777");
+    
+//   }
+//   else{
+//   	 setTimeout('resetGatter(interactive_gatter)', 1200);
+//   }
 }
 
 
@@ -1580,12 +1603,31 @@ let set;
 }
 
 
+function createImageGatterInteractive(){
+let set;
+
+	if(level ==0 || level ==1){
+      set = gatters_images[0];
+	}
+	else if(level >1){
+      set = gatters_images[1]+ gatters_images[2];
+	}
+	
+	else if(level >3){
+      set = gatters_images[3];
+	}
+	else if(level >5){
+       gatters_images[4];
+	}
+	
+	return set; 
+}
+
 
 document.addEventListener('click', function(e) {
-       if (e.target.closest('.game_gatter_interactive')) {
-          let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
-
-          interactiveGatter(id);
-        }
-     });
+if (e.target.closest('.game_gatter_interactive')) {
+  let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
+  interactiveGatter(id);
+}
+});
 
