@@ -68,14 +68,12 @@ background-image: url('../img/background_game.jpg');
 background-position: center;
 background-size: cover;
 background-repeat: no-repeat;
-/*height: 100vh;*/
 }
 .container{
 width: 90vw;
 margin:auto;
 max-width: 1920px;
 position: relative;
-/*min-height: 100vh;*/
 }
 .col-md-6 {
 width: 50%;
@@ -128,7 +126,6 @@ color: #fff;
 background-color: transparent;
 color: #fff;
 border: 2px solid #fff;
-/*font-size: 27px;*/
 font-size: 25px;
 width: 290px;
 height: 64px;
@@ -215,7 +212,6 @@ text-align: center;
 }
 p.tutorial_text{
 font-family:"SegoeUI";
-/*font-size: 26px;*/
 font-size: 22px;
 text-align: left;
 line-height: 29px;
@@ -409,7 +405,6 @@ display: block;
 display: none;
 }
 .white_quant{
-/*background-color: #fff;*/
 background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(145,145,145,1) 50%, rgba(34,34,34,1) 100%);
 border: 2px solid #333;
@@ -417,12 +412,9 @@ border: 2px solid #333;
 .black_quant{
 background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,189,238,1) 50%, rgba(2,63,132,1) 100%);
-
 border:solid 2px #333;
-/*черный был*/
 }
 .sup_quant{
-/*Супер была серая*/
 background-color: transparent;
 border: 2px solid #fff;
 }
@@ -463,8 +455,6 @@ margin: 10px;
 }
 .interactive>.quants,
 .static_table>.quants{
-/*width: 90px;
-height: 90px;*/
 max-height: 65px;
 max-width: 65px;
 width: 4.5vw;
@@ -475,7 +465,6 @@ color: #4f81bd;
 }
 .game_stat{
 color: #fff;
-/*font-size: 42px;*/
 font-size: 36px;
 font-family:"SegoeUI Light";
 text-align: right;
@@ -595,7 +584,7 @@ background-color: #011027;
 -webkit-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 -moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
-width: 960px;
+width: 760px;
 display: none;
 z-index: 55;
 text-align: center;
@@ -629,7 +618,6 @@ margin-top: 30px;
 }
 .gatter_block_title{
 color: #fff;
-/*font-size: 42px;*/
 font-size: 30px;
 font-family:"SegoeUI Light";
 margin-bottom: 20px;
@@ -644,9 +632,11 @@ margin: auto;
 text-align: left;
 padding-top: 20px;
 }
+.interactive_gatter_block.double_gatter_inner{
+max-width: 330px;
+}
 .target_pattern{
 color: #fff;
-/*font-size: 42px;*/
 font-size: 36px;
 font-family:"SegoeUI Light";
 margin-bottom: 20px;
@@ -667,7 +657,7 @@ color: #fff;
 border: 2px solid #fff;
 border-radius: 7px;
 font-family:"SegoeUI Semibold";
-padding: 0 30px;
+padding: 0 45px;
 cursor: pointer;
 -webkit-transition: all 1.2s ease-out;
 -o-transition: all 1.2s ease-out;
@@ -849,13 +839,18 @@ cursor: not-allowed;
 .arrow_button{
 display: inline-block;
 max-width: 30px;
+margin-left: 10px;
 }
 @media (max-width: 1366px) {
 #notification_table{
 top: 47%;
 }
-
-
+.game_gatter,
+.game_gatter_clicked,
+.game_gatter_interactive,
+.game_gatter_info{
+padding: 0 35px;
+}
 .quants {
 width: 4.4vw;
 height: 4.4vw;
@@ -929,7 +924,7 @@ display: block;
 }
 .info_text {
 font-size: 16px;
-line-height: 19px;
+line-height: 17px;
 margin-left: 0;
 }
 #information,

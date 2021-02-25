@@ -35,8 +35,6 @@ let solution_sequence = [  [[3,2,2], [2,2,2], [1,3,3]],
  [[1,2,1], [1,1,2], [2,2,2]], [[3,2,1], [1,2,1], [1,3,3]], 
  [[1,1,2], [3,1,2], [3,3,3]]
 ];
-
-
 let gatters_images = [
 '<div class="game_gatter_info"><span class="gatter_symbol">X</span> <br> <span class="gatter_word"> Gatter</span></div>',    
 '<div class="game_gatter_info"><span class="gatter_symbol">H0</span> <br> <span class="gatter_word"> Gatter</span></div>',     
@@ -44,10 +42,7 @@ let gatters_images = [
 '<div class="game_gatter_info"><span class="gatter_symbol">SWAP</span> <br> <span class="gatter_word"> Gatter</span></div>',      
 '<div class="game_gatter_info"><span class="gatter_symbol">SNOT</span> <br> <span class="gatter_word"> Gatter</span></div>'
 ] 
-
-
 let attempt = [0, [0, 0], 0,0];
-
 let moves =0;
 let level = 0;
 let max_moves = [2,3,2,3,2,2,2,3];
@@ -88,9 +83,7 @@ el.style.display = 'none';
 function fadeIn(el) { 
 if(el == tutorial_show){
   if(tutorial[0].classList.contains('tutorial_block2')) {
-
      document.getElementById('h_gatter1_interactive').classList.add('active');
-
   }  
   else if(tutorial[0].classList.contains('tutorial_block3') || tutorial[0].classList.contains('tutorial_block4')  ){
 	    quibits_trainfirst_container = document.querySelectorAll('.interactive'); 
@@ -156,11 +149,7 @@ function cellClick(event) {
              if(aсtive_index){
 		  	  combination.splice(active_index, 1); }
 		  }
-
-
-
-		  else{
-	
+		  else{	
 		  	combination = [];
 		  }    
 	
@@ -180,11 +169,10 @@ function cellClick(event) {
 		  else if(gatter_in_action == 'snot_gatter'){
               snotGatter();
 		  }
-		   // alert("2222");
-       
+      
 		     setTimeout('resetGatter(gatter_in_action)', 1200);
+          }
         }
-       }
        }
     }
 }
@@ -556,7 +544,6 @@ let index = 0;
 let tutorial = document.querySelectorAll('.tutorial_block1');
 let index_length = tutorial.length;
 function checkTutorial(){
-	// alert('Проверяю ' + level);
    if(level <=1){
      tutorial = document.querySelectorAll('.tutorial_block1');	
 	}
@@ -584,7 +571,7 @@ function cleanTutorial(){
      next_tutorial.style.display = 'none';
      to_level.style.display = 'inline-block';
      let to_current = level +1;		
-	 to_level.innerHTML = '<span>Zu Level' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
+	 to_level.innerHTML = '<span>Zu Level ' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
   }
   else{
     next_tutorial.style.display = 'inline-block';
@@ -605,6 +592,9 @@ function checkUpSequence(){
           return; 
 
       }
+
+    setTimeout(function() {
+        
          working_sequence = sequence.map(sub => sub.slice());  
          turnOnGatter(); 
          current_level.innerText = level+1;
@@ -615,6 +605,9 @@ function checkUpSequence(){
          back_move.classList.remove('active');
          createPattern(level);
          buildGame(sequence);
+
+    }, 2100);
+
     	if(level ==2 || level ==4 || level==6){  
 
           checkTutorial();
@@ -625,7 +618,10 @@ function checkUpSequence(){
     	}
     	else{    			    
     	let win = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Glückwunsch! Du hast dieses Level erfolgreich gelöst!</p>';    	
-        notifyPlayer(win);
+               setTimeout(function() {
+         notifyPlayer(win);
+         }, 2000);
+
         modal_buttons.style.display = 'none';
     	pass_modal.style.display = 'inline_block';  
     	}    
@@ -753,38 +749,23 @@ let info_table = document.querySelectorAll('.info_table');
         document.getElementById('h2_gatter_show').style.display = 'block';      	
         document.getElementById('h1_gatter_show').style.display = 'block';
         document.getElementById('snot_gatter_show').style.display = 'block';	
-	}
-	
+	}	
 fadeIn(info_section);
-// document.getElementById('x_gatter_show').style.display = 'block';
-
-
-// cleanTutorial();
-
-// 	next_tutorial.style.display = 'inline-block';
-// 	to_level.style.dist_horizontal = 'none';
-// 	back_tutorial.classList.add('disabled');
-// 	to_level.classList.add('disabled');	
-    
-// 	fadeIn(tutorial_show);
 });
 close.addEventListener('click', function(){
    fadeOut(tutorial_show);
+   gatter_ind = 4;
    cleanTutorial();
 });
 next_tutorial.addEventListener('click', function(e){
 	tutorial[index].classList.remove('active');
 	++index;
-
-
 	if(index == index_length-1 ){		
 		index= index_length-1;
 		next_tutorial.style.display = 'none';
 		to_level.style.display = 'inline-block';
-		let to_current = level +1;
-
-		
-		to_level.innerHTML = '<span>Zu Level' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
+		let to_current = level +1;		
+		to_level.innerHTML = '<span>Zu Level ' + to_current + '<img class="arrow_button" src="img/arrow_right.png" alt="game"></span>';
 
 		if(index>0){
 		back_tutorial.classList.remove('disabled'); 		
@@ -844,6 +825,7 @@ level_redone.addEventListener('click', function(e){
 });
 to_level.addEventListener('click', function(e){
   fadeOut(tutorial_show);
+  gatter_ind = 4;
   checkTutorial();
   cleanTutorial();  
 });
@@ -853,7 +835,6 @@ let quibit_starty;
 let initial_id;
 let initial;
 let el;
-
 
 function handleLine(active_line){
 for(let i=0; i<3; i++){
@@ -873,26 +854,17 @@ for(let i=0; i<3; i++){
       setTimeout('applyVerticalGatter()', 1000);      
 }
 function resetGatter(id){
+
+if(gatter_ind==2){
+
+	return;
+}
+
 if(gatter_in_action){
 	gatter_in_action = null;
 	document.getElementById(id).classList.remove('active');
 	return false;
 }
-
-
-// if(document.getElementById('double_gatter_block').classList.contains('active')){
-// 	if(!reset_mode){
-// 		if(document.getElementById('h_gatter1_interactive').classList.contains('active')){
-// 			interactive_gatter = 'h_gatter1_interactive';
-// 		}
-
-// 		if(document.getElementById('h_gatter2_interactive').classList.contains('active')){
-// 			interactive_gatter = 'h_gatter2_interactive';
-// 		}
-// 		return false;
-// 	  }
-// 	}
-
 	if(interactive_gatter){
        document.getElementById(id).classList.remove('active');
 	   interactive_gatter = null;
@@ -968,16 +940,12 @@ if(gatter_in_action == 'swap_gatter' ||
 	 	gatter_in_action == 'snot_gatter'){
 return false;
 }
-
-
-
 if(moves>=available_moves){
 return false;
 }
-
 let quibits_containers = document.querySelectorAll('.quibits_container');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
-let set_quibit = width_quibits.width*1.6;
+let set_quibit = width_quibits.width*1.5;
 let changedX = e.changedTouches[0].pageX;
 let changedY = e.changedTouches[0].pageY;
 
@@ -987,15 +955,10 @@ let user_check_up = checkUpUserAction(initial_id, current_direction,
 if(!user_check_up){
 return false;
 }
-
   initialX = null;
   initialY = null;
 
-
-
 let index = initial_id.charAt(2);
-
-
 	let active_line = initial_id.charAt(0);
 	let active_column = initial_id.charAt(2);
 	let current_state = working_sequence.map(sub => sub.slice());
@@ -1014,15 +977,12 @@ let index = initial_id.charAt(2);
 
 
 function wrongChoice(){
-
 let errors_committed = '<p class="tutorial_text centered_text">Wähle eine Zeile oder eine Spalte!</p>';
 notifyPlayer(errors_committed);
-
 }
 
 function checkUpUserAction(id, direction, startX, 
 	newX, startY, newY, size, prefix ){
-
 	
 if(direction== 'right'){
 let right_set= 	['0 0', '1 0', '2 0'];
@@ -1035,8 +995,7 @@ let right_set= 	['0 0', '1 0', '2 0'];
 		wrongChoice();
      return false;
 	}
-	if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){
-        // alert(id==right_set[0])
+	if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){    
 		if(Math.abs(newX-startX) <size){
 			wrongChoice();
          return false;
@@ -1045,8 +1004,7 @@ let right_set= 	['0 0', '1 0', '2 0'];
 	    	return true;
 	    }
 	}
-	else{
-		// wrongChoice();
+	else{		
 		return false;
 	}
 }
@@ -1073,22 +1031,18 @@ if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
 	    }
 	}
 	else{
-		// wrongChoice();
 		return false;
 	}
 }
 
 
 else if(direction== 'up'){
-
 	let up_set= ['2 0', '2 1', '2 2'];
 	if(prefix){
       for(let i=0; i< up_set.length; i++){
       	up_set[i] = up_set[i]+prefix;
       }
 	}
-
-
 	if(Math.abs(newX-startX) >80){
 		wrongChoice();
      return false;
@@ -1103,8 +1057,7 @@ else if(direction== 'up'){
 	    	return true;
 	    }
 	}
-	else{
-		// wrongChoice();
+	else{	
 		return false;
 	}
 }
@@ -1132,8 +1085,7 @@ else if(direction== 'up'){
 	    	return true;
 	    }
 	}
-	else{
-		// wrongChoice();
+	else{	
 		return false;
 	}
   }
@@ -1182,7 +1134,6 @@ let initial_interctive;
 
   el = e.target || window.event;   
 	if(el.classList.contains('quants')){
-		// alert("ajajaj");
 	   initial_interctive = e.target.parentNode;
 	}
 	else{
@@ -1325,7 +1276,7 @@ function applyInteractMechanics(part, position, interactive_gatter, prefix){
 		else if(interact_combination[part][i] ==3){		
 		  interact_combination[part][i] = 2; 		  
 		}
-     }
+       }
 
 	  }
 	 }
@@ -1375,18 +1326,8 @@ setTimeout('resetGatter(interactive_gatter)', 1200);
 
 
 function showInteractResult(prefix){
-// console.log(prefix);
-// console.log(interact_combination);
-
-
 let id = 'container' + prefix;
-
-// console.log(id);
 let container = document.getElementById(id);
-
-
-	// console.log(container);
-
 let table = document.createElement('table'),
 		tbody = document.createElement('tbody');
 		let tables_id = 'train'+ prefix;	
@@ -1399,11 +1340,10 @@ let table = document.createElement('table'),
 		for(let j = 0; j < 3; ++j){
 			let cell = document.createElement('td');
 			let class_quibit = 'quibits'+ prefix; 
-			cell.classList.add(class_quibit, 'interactive');
-			
+			cell.classList.add(class_quibit, 'interactive');		
 
-			cell.setAttribute('id' , i + " " + j+ prefix);				
-				 // cell.onclick = cellClick;
+			cell.setAttribute('id' , i + " " + j+ prefix);			
+			
 				let quant = interact_combination[i][j];
 				if(quant==1){
                   quant = '<div class="quants white_quant"></div>';
@@ -1420,13 +1360,8 @@ let table = document.createElement('table'),
 		tbody.appendChild(row);	
 	}
 
-	// console.log(table);
-
 	container.innerHTML = '';
 	container.appendChild(table);
-
-
-
 
 quibits_trainfirst_container = document.querySelectorAll('.interactive');
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
@@ -1446,18 +1381,9 @@ function interactiveGatter(id){
 	  interactive_gatter =  gatter.getAttribute('id');
 	 }
 
-	 // console.log(interactive_gatter);
-
-
 	quibits_trainfirst_container = document.querySelectorAll('.interactive');
-
 	 if(interactive_gatter == 'swap_gatter_interactive' || 
-	 	interactive_gatter == 'snot_gatter_interactive '){
-
-	 	
-      
-
-	 	
+	 	interactive_gatter == 'snot_gatter_interactive '){	 	
 	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
 
@@ -1467,8 +1393,7 @@ function interactiveGatter(id){
 	quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
 	quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
 	quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);
-	
-	
+		
 	});
 	 }
 	 else{
@@ -1480,32 +1405,22 @@ function interactiveGatter(id){
  }
 }
 
-
-
 function setClickedQuibits(){
-alert('aaaaa');
-
-
 if(!interactive_gatter){
 	let images =createImageGatterInteractive();
 	let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;		
 	notifyPlayer(empty_message);
 	return false;	
 }
-
   let el = event.target || window.event;   
 	if(el.classList.contains('quants')){
 	  el = event.target.parentNode;
 	}
-
-
 		if(el.classList.contains('active')){
 		  el.classList.remove('active');		 
 		  let id = el.getAttribute('id');
-		  if(inter_combination.length>1){
-		  	
-		  	let aсtive_index = inter_combination.indexOf(id);
-        
+		  if(inter_combination.length>1){		  	
+		  	let aсtive_index = inter_combination.indexOf(id);        
              if(aсtive_index){
 		  	  inter_combination.splice(active_index, 1); }
 		  }
@@ -1535,13 +1450,11 @@ if(!interactive_gatter){
 	let second_swap  = interact_combination[active_line2_swap][active_column2_swap];
 	interact_combination[active_line1_swap][active_column1_swap] = second_swap;
 	interact_combination[active_line2_swap][active_column2_swap] = first_swap;
-     inter_combination = [];
-     
+     inter_combination = [];   
 
 
        }
       else if(interactive_gatter== 'snot_gatter_interactive ')	{
-
 	let active_line1_snot = inter_combination[0].charAt(0);
 	let active_column1_snot = inter_combination[0].charAt(2);
 	let active_line2_snot = inter_combination[1].charAt(0);
@@ -1549,8 +1462,6 @@ if(!interactive_gatter){
 	let control = interact_combination[active_line2_snot][active_column2_snot];
 	interact_combination[active_line1_snot][active_column1_snot] = control; 
 	inter_combination = [];
-
-
        }
        setTimeout('showInteractResult(prefix)', 1000);
        setTimeout('resetGatter(interactive_gatter)', 1200);
@@ -1558,21 +1469,13 @@ if(!interactive_gatter){
 		}
        }
 tutorialNotifications();
-
 }
 
 function tutorialNotifications(){
 let encourage_message; 
 if(current_tutor_index == 1){
-
-	// console.log('current_tutor_index ' + current_tutor_index);
-	// console.log(attempt[current_tutor_index]);
   if(attempt[current_tutor_index][0] == 0){
- //  	console.log('Проверяю первый');
- //  	console.log('current_tutor_index ' + current_tutor_index);
-	// console.log(attempt[current_tutor_index]);
     attempt[current_tutor_index][0] = 1;
-
      encourage_message = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut, jetzt probiere den Gatter H1 anzuwenden!</p>';	
        setTimeout(function() {
          notifyPlayer(encourage_message);
@@ -1585,33 +1488,27 @@ if(current_tutor_index == 1){
      
      document.getElementById('h_gatter2_interactive').classList.remove('game_gatter_clicked',  'disabled');
      document.getElementById('h_gatter2_interactive').classList.add('game_gatter_interactive', 'active');
+     
      interactive_gatter = 'h_gatter2_interactive';
-
+     gatter_ind =2;
     	      
 	}
-  // }
-
    else if(attempt[current_tutor_index][1] == 0){
-   	// console.log('Проверяю второй');
-   	// console.log('current_tutor_index ' + current_tutor_index);
-	// console.log(attempt[current_tutor_index]);
-   	
+  	
      let mess = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Sehr gut! Wenn du die Funktionsweise verstanden hast, dann klicke auf den Button „Zu Level 3“, ansonsten kannst du noch rumprobieren, und wenn du so weit bist, kannst du das Level 3 starten.</p>';	
       setTimeout(function() {
          notifyPlayer(mess); 
-      }, 1500);
-
-     
+      }, 1500);     
       attempt[current_tutor_index][1] =1;
       to_level.classList.remove('disabled');
-      document.getElementById('h_gatter2_interactive').classList.remove('active');
-    
+      document.getElementById('h_gatter2_interactive').classList.remove('active');    
      document.getElementById('h_gatter1_interactive').classList.remove('game_gatter_clicked',  'disabled');
      document.getElementById('h_gatter1_interactive').classList.add('game_gatter_interactive');
      reset_mode = true;
-       // setTimeout('resetGatter(interactive_gatter)', 1200);   
-   	 // }
    	 return false;
+   }
+   else{
+   	gatter_ind = 4;
    }
 
  }
@@ -1634,14 +1531,6 @@ if(attempt[current_tutor_index] == 0){
 
    to_level.classList.remove('disabled');
   }
-// alert(interactive_gatter);
-//   if(interactive_gatter== 'snot_gatter_interactive' || interactive_gatter== 'swap_gatter_interactive'){
-//  alert("77777");
-    
-//   }
-//   else{
-//   	 setTimeout('resetGatter(interactive_gatter)', 1200);
-//   }
 }
 
 
@@ -1702,10 +1591,9 @@ if (e.target.closest('.game_gatter_interactive')) {
 			game_gatters[a].classList.remove('active');
 		}
 	}
-
      let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
       interactiveGatter(id);
  
-}
+ }
 });
 
