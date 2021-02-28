@@ -62,8 +62,10 @@ overflow: hidden;
 -ms-touch-action: none;
 touch-action: none;
 height: 100vh;
+
 }
 html{
+background-color: #011027;
 background-image: url('../img/background_game.jpg');
 background-position: center;
 background-size: cover;
@@ -270,7 +272,7 @@ z-index: 3;
 background-color: transparent; 
 }
 .highlighted.one{
-top: 12%;
+top: 15%;
 left: 0;
 right: 0;
 margin: 0 auto;
@@ -278,42 +280,42 @@ width: 61%;
 height: 55%;
 }
 .highlighted.two{
-bottom: 16%;
+bottom: 12%;
 left: 0;
 right: 0;
 margin: 0 auto;
 width: 40%;
-height: 21%;
+height: 22%;
 }
 .highlighted.three{
-top: 19%;
+top: 21%;
 left: 3%;
 width: 19%;
-height: 29%;
+height: 30%;
 }
 .highlighted.four{
-top: 1%;
+top: 3%;
 left: 29%;
 width: 15%;
 height: 11%;
 }
 .highlighted.five{
-top: 1%;
+top: 3%;
 right: 33%;
 width: 15%;
 height: 11%;
 }
 .highlighted.six{
-bottom: 9%;
+bottom: 5%;
 left: 1%;
 width: 21%;
-height: 10%;
+height: 11%;
 }
 .highlighted.seven{
-bottom: 9%;
+bottom: 5%;
 right: 1%;
 width: 21%;
-height: 10%;
+height: 11%;
 }
 .game_rules_text{
 font-family:"SegoeUI";
@@ -345,11 +347,11 @@ left: -13%;
 }
 .game_rules_text.four{
 right: 6%;
-top: 5%;
+top: 16%;
 }
 .game_rules_text.five{
 left: 6%;
-top: 5%;	
+top: 16%;	
 }
 .game_rules_text.six{
 right: -12%;
@@ -479,7 +481,6 @@ margin-top: 20px;
 .stat_block>.game_stat.moves{
 margin-bottom: 20px;
 color: #fff;
-/*font-size: 42px;*/
 font-size: 36px;
 font-family:"SegoeUI Light";	
 display: inline-block;
@@ -562,6 +563,7 @@ text-align:center;
 #solution{
 display: inline-block;
 margin-bottom: 20px;
+margin-left: 5%;
 }
 #notification_message{
 text-align: center;
@@ -584,7 +586,7 @@ background-color: #011027;
 -webkit-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 -moz-box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
 box-shadow: 0px -1px 21px 12px rgba(38, 145, 254, 0.2);
-width: 760px;
+width: 790px;
 display: none;
 z-index: 55;
 text-align: center;
@@ -640,6 +642,7 @@ color: #fff;
 font-size: 36px;
 font-family:"SegoeUI Light";
 margin-bottom: 20px;
+margin-left: 5%;
 }
 .back_icon{
 display: inline-block;
@@ -715,7 +718,7 @@ margin: 0 auto;
 margin-top: 30px;
 margin-bottom: 30px;
 }
-#h_gatter1, #h_gatter2, #swap_gatter, #snot_gatter{
+#h_gatter1, #h_gatter2, #swap_gatter, #cnot_gatter{
 display: none;
 } 
 #finish{
@@ -733,8 +736,10 @@ width: 95vw;
 height: 85vh;
 max-height: 800px;
 z-index: 12;
-top: 50px;
-bottom: 0;
+top: 50%;
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
 left: 0;
 right: 0;
 margin: 0 auto;
@@ -806,11 +811,14 @@ margin: 0 auto;
 display: block;
 width: 100%;
 position: absolute;
-top:0;
-z-index: 1;
+top: 50%;
+-webkit-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
 left: 0;
 right: 0;
-margin: auto;
+margin: 0 auto;
+z-index: 1;
 }
 .tutorial_section{
 width: 100%;
@@ -845,6 +853,12 @@ margin-left: 10px;
 #notification_table{
 top: 47%;
 }
+
+.info_table_desc {
+max-width: 100%;
+}
+
+
 .game_gatter,
 .game_gatter_clicked,
 .game_gatter_interactive,
@@ -1068,4 +1082,18 @@ margin-top: 20px;
 .arrow_button {
 max-width: 20px;
 }
+}
+.info_cells.tutor, 
+td.tutor{
+padding: 0;	
+}
+
+.tutor.info_quants{
+margin: 1px;
+width:12px;
+height: 12px;
+}
+
+.desc_gatter_symbol_container{
+min-width: 170px;
 }

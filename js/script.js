@@ -40,7 +40,7 @@ let gatters_images = [
 '<div class="game_gatter_info"><span class="gatter_symbol">H0</span> <br> <span class="gatter_word"> Gatter</span></div>',     
 '<div class="game_gatter_info"><span class="gatter_symbol">H1</span><br> <span class="gatter_word"> Gatter</span></div>',
 '<div class="game_gatter_info"><span class="gatter_symbol">SWAP</span> <br> <span class="gatter_word"> Gatter</span></div>',      
-'<div class="game_gatter_info"><span class="gatter_symbol">SNOT</span> <br> <span class="gatter_word"> Gatter</span></div>'
+'<div class="game_gatter_info"><span class="gatter_symbol">CNOT</span> <br> <span class="gatter_word"> Gatter</span></div>'
 ] 
 let attempt = [0, [0, 0], 0,0];
 let moves =0;
@@ -66,6 +66,19 @@ function notifyPlayer(message){
     overlay.style.display = 'block'; 
     fadeIn(notification_modal);
 }
+
+
+function cleanQuants(quants){
+	
+for(let i=0; i<quants.length; i++){
+	quants[i].classList.remove('active');
+ }
+}
+
+
+
+
+
 // hide, show methods of elements
 function fadeOut(el) {  
 	var opacity = 1;  
@@ -82,19 +95,30 @@ el.style.display = 'none';
 }
 function fadeIn(el) { 
 if(el == tutorial_show){
+
+
+
+
+
+		
   if(tutorial[0].classList.contains('tutorial_block2')) {
      document.getElementById('h_gatter1_interactive').classList.add('active');
   }  
-  else if(tutorial[0].classList.contains('tutorial_block3') || tutorial[0].classList.contains('tutorial_block4')  ){
+   else if(tutorial[0].classList.contains('tutorial_block3') || 
+  	tutorial[0].classList.contains('tutorial_block4')  ){
+	    resetGatter(interactive_gatter);
+// alert(interactive_gatter);
 	    quibits_trainfirst_container = document.querySelectorAll('.interactive'); 
-		quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-		quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
-	});
-		quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-		quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
-		quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
-		quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);	
-	});
+ //        quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	// 	quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
+	// 	quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
+	// 	quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);	
+	// });
+
+	// 	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	// 	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+	// });
+		
 
   }
 }
@@ -116,11 +140,11 @@ let combination = [];
 function overMoves(){
   	let message =  '<p class="tutorial_text centered_text"> Du hast die maximale Anzahl von Zügen erreicht. <br><br> Drücke auf "Rückgängig", um einen Zug zurückzuziehen oder starte den Level erneut.</p>';
     modal_buttons.style.display = 'block';
-    pass_modal.style.display = 'none';
+    
     setTimeout(function() {
          notifyPlayer(message);
       }, 1000);
-    	
+    pass_modal.style.display = 'none';	
 }
 function cellClick(event) {
   if(moves>=available_moves){
@@ -134,7 +158,7 @@ function cellClick(event) {
 	return false;
   }
    else{
-   	if(gatter_in_action== 'snot_gatter' || gatter_in_action == 'swap_gatter'){
+   	if(gatter_in_action== 'cnot_gatter' || gatter_in_action == 'swap_gatter'){
 		let el = event.target || window.event;   
 		if(el.classList.contains('quants')){
 		  el = event.target.parentNode;
@@ -156,18 +180,18 @@ function cellClick(event) {
 		}
 		else{
 		  el.classList.add('active');		
-		let index_in_collection = el.getAttribute('id');	
-		combination.unshift(index_in_collection);
-		let active_line = el.childNodes[0].id.charAt(0);
-		let active_quilbit = el.childNodes[0].id.charAt(2);
+			let index_in_collection = el.getAttribute('id');	
+			combination.unshift(index_in_collection);
+			let active_line = el.childNodes[0].id.charAt(0);
+			let active_quilbit = el.childNodes[0].id.charAt(2);
 
 		 if(combination.length==2){
 		  if(gatter_in_action == 'swap_gatter'){
 		  	 swapGatter();
 
 		  }
-		  else if(gatter_in_action == 'snot_gatter'){
-              snotGatter();
+		  else if(gatter_in_action == 'cnot_gatter'){
+              cnotGatter();
 		  }
       
 		     setTimeout('resetGatter(gatter_in_action)', 1200);
@@ -211,6 +235,9 @@ solution.appendChild(table_solution);
 }
 // create a game field
 function buildGame(array){
+
+// console.log(array);
+
 	let table = document.createElement('table'),
 		tbody = document.createElement('tbody');	
 		table.id = 'game_field';				
@@ -268,6 +295,8 @@ function backMoveRun(){
 function closeModal(){
 fadeOut(notification_modal);
 overlay.style.display = 'none';
+ modal_buttons.style.display = 'none';
+ pass_modal.style.display = 'inline-block';
 }
 if(close_info){
 	close_info.addEventListener('click', function(){
@@ -280,20 +309,20 @@ const x_gatter = document.getElementById('x_gatter');
 const h_gatter1 = document.getElementById('h_gatter1');
 const h_gatter2 = document.getElementById('h_gatter2');
 const swap_gatter = document.getElementById('swap_gatter');
-const snot_gatter = document.getElementById('snot_gatter');
+const cnot_gatter = document.getElementById('cnot_gatter');
 	if(level ==2 || level ==3){
 	x_gatter.style.display = 'inline-block';
 	h_gatter1.style.display = 'inline-block'; 
 	h_gatter2.style.display = 'inline-block'; 
 	swap_gatter.style.display = 'none'; 
-	snot_gatter.style.display = 'none'; 	
+	cnot_gatter.style.display = 'none'; 	
 	}
 	else if(level ==4){
 		x_gatter.style.display = 'inline-block';
 		h_gatter1.style.display = 'none'; 
 	    h_gatter2.style.display = 'none'; 
 		swap_gatter.style.display = 'inline-block'; 
-		snot_gatter.style.display = 'none'; 	
+		cnot_gatter.style.display = 'none'; 	
 	}
     else if(level ==5){
     
@@ -302,21 +331,21 @@ const snot_gatter = document.getElementById('snot_gatter');
 				
 	    h_gatter2.style.display = 'inline-block'; 
 		swap_gatter.style.display = 'inline-block'; 
-		snot_gatter.style.display = 'none';
+		cnot_gatter.style.display = 'none';
     }
 	else if(level ==6){
 		x_gatter.style.display = 'inline-block';
 		h_gatter1.style.display = 'none'; 
 	    h_gatter2.style.display = 'none'; 
 		swap_gatter.style.display = 'none'; 
-		snot_gatter.style.display = 'inline-block'; 	
+		cnot_gatter.style.display = 'inline-block'; 	
 	}
 	else if(level ==7){
 		x_gatter.style.display = 'inline-block';
 		h_gatter1.style.display = 'inline-block'; 
 	    h_gatter2.style.display = 'inline-block'; 
 		swap_gatter.style.display = 'none'; 
-		snot_gatter.style.display = 'inline-block'; 	
+		cnot_gatter.style.display = 'inline-block'; 	
 	}
 
     let game_gatters = document.querySelectorAll('.game_gatter');
@@ -357,7 +386,7 @@ if(combination.length==0){
 
    else if(combination.length<2){
       let errors_committed;
-   	if(gatter_in_action=='swap_gatter' || gatter_in_action == 'snot_gatter'){
+   	if(gatter_in_action=='swap_gatter' || gatter_in_action == 'cnot_gatter'){
    		errors_committed = '<p class="tutorial_text centered_text">Wähle zwei Qubits!</p>';
    	}
    	else{
@@ -459,8 +488,8 @@ if(combination.length==0){
 		
   
 	  break;
-	    case 'snot_gatter':
-	      snotGatter();
+	    case 'cnot_gatter':
+	      cnotGatter();
 	    
 	   break;
 
@@ -468,7 +497,7 @@ if(combination.length==0){
 	}
     checkUpSequence();
 }
-// swap, snot gates
+// swap, cnot gates
 function swapGatter(){
 	let active_line1 = combination[0].charAt(0);
 	let active_column1 = combination[0].charAt(2);
@@ -476,18 +505,42 @@ function swapGatter(){
 	let active_column2 = combination[1].charAt(2);
 	let first_swap = working_sequence[active_line1][active_column1];
 	let second_swap  = working_sequence[active_line2][active_column2];
+	let current_state = working_sequence.map(sub => sub.slice());	
+    playerGameState.moves.unshift(current_state);
 	working_sequence[active_line1][active_column1] = second_swap;
 	working_sequence[active_line2][active_column2] = first_swap;
+	 
    checkUpSequence();
 
 }
-function snotGatter(){
+function cnotGatter(){
 	let active_line1 = combination[0].charAt(0);
 	let active_column1 = combination[0].charAt(2);
 	let active_line2 = combination[1].charAt(0);
 	let active_column2 = combination[1].charAt(2);
+	let current_state = working_sequence.map(sub => sub.slice());	
+    playerGameState.moves.unshift(current_state);
 	let control = working_sequence[active_line2][active_column2];
-	working_sequence[active_line1][active_column1] = control; 
+	let quants = document.querySelectorAll('.quibits_container');
+	if(control == 3){
+		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+	    notifyPlayer(wrong_message);
+	    cleanQuants(quants);
+	    combination = [];
+		return false;
+	}
+	else if(working_sequence[active_line1][active_column1] == 3){
+		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+	    notifyPlayer(wrong_message);
+	    cleanQuants(quants);
+	    combination = [];
+		return false;
+
+	}
+	else{
+		working_sequence[active_line1][active_column1] = control;
+	}
+	 
 	checkUpSequence();
 }
 
@@ -523,17 +576,17 @@ let gatterItems = document.querySelectorAll('.game_gatter'),
                	if(gatter_in_action== 'swap_gatter'){
              		swapGatter();
              	}
-             	else if(gatter_in_action == 'snot_gatter'){
-             		snotGatter();
+             	else if(gatter_in_action == 'cnot_gatter'){
+             		cnotGatter();
              	}
-            else if(combination.length==1){
-           	let two_message = '<p class="tutorial_text centered_text"> Wähle zwei Qubits!</p>'
-             	notifyPlayer(two_message);
-	            modal_buttons.style.display = 'none';
-                pass_modal.style.display = 'inline-block';
-                document.getElementById(combination[0]).classList.remove('active');
-                combination = [];
-             }
+            // else if(combination.length==1){
+           	// let two_message = '<p class="tutorial_text centered_text"> Wähle zwei Qubits!</p>'
+            //  	notifyPlayer(two_message);
+	           //  modal_buttons.style.display = 'none';
+            //     pass_modal.style.display = 'inline-block';
+            //     document.getElementById(combination[0]).classList.remove('active');
+            //     combination = [];
+            //  }
            }
         event.preventDefault();
        }
@@ -605,8 +658,9 @@ function checkUpSequence(){
          back_move.classList.remove('active');
          createPattern(level);
          buildGame(sequence);
+         resetGatter(gatter_in_action);
 
-    }, 2100);
+    }, 1450);
 
     	if(level ==2 || level ==4 || level==6){  
 
@@ -620,7 +674,7 @@ function checkUpSequence(){
     	let win = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Glückwunsch! Du hast dieses Level erfolgreich gelöst!</p>';    	
                setTimeout(function() {
          notifyPlayer(win);
-         }, 2000);
+         }, 1500);
 
         modal_buttons.style.display = 'none';
     	pass_modal.style.display = 'inline_block';  
@@ -648,7 +702,10 @@ function applyHorizontalGatter(){
 		}
 		else if(working_sequence[active_line][i] ==3){
 		  working_sequence[active_line][i] = 1; 	
-		} 
+		}
+		else if(working_sequence[active_line][i] ==2){
+			working_sequence[active_line][i] =3;
+        }   
 	  }
       break;
     	case 'h_gatter2':   
@@ -659,6 +716,9 @@ function applyHorizontalGatter(){
 		else if(working_sequence[active_line][i] ==3){		
 		  working_sequence[active_line][i] = 2; 		  
 		}
+		else if(working_sequence[active_line][i] ==2){
+			working_sequence[active_line][i] =3;
+        }   
 	}
 	
 	  break;
@@ -691,6 +751,10 @@ function applyVerticalGatter(){
 			else if(working_sequence[i][active_column] ==3){
 			working_sequence[i][active_column] =1;
             }  
+            else if(working_sequence[i][active_column] ==2){
+			working_sequence[i][active_column] =3;
+            }  
+
          }
       break;
     	case 'h_gatter2':  
@@ -701,6 +765,9 @@ function applyVerticalGatter(){
 			else if(working_sequence[i][active_column] ==3){
 			working_sequence[i][active_column] =2;
             } 
+            else if(working_sequence[i][active_column] ==2){
+			working_sequence[i][active_column] =3;
+            }  
          }       
     
 	}
@@ -712,7 +779,7 @@ window.onload = function() {
 	solution = document.getElementById('solution');
 	createPattern(level);
 	buildGame(sequence);
-
+	turnOnGatter();
 }
 information.addEventListener('click', function(){
 let info_table = document.querySelectorAll('.info_table');
@@ -742,19 +809,21 @@ let info_table = document.querySelectorAll('.info_table');
 
 	else if(level ==6){		      	
         document.getElementById('x_gatter_show').style.display = 'block'; 
-        document.getElementById('snot_gatter_show').style.display = 'block';	
+        document.getElementById('cnot_gatter_show').style.display = 'block';	
 	}
 	else if(level ==7){
 		document.getElementById('x_gatter_show').style.display = 'block'; 		
         document.getElementById('h2_gatter_show').style.display = 'block';      	
         document.getElementById('h1_gatter_show').style.display = 'block';
-        document.getElementById('snot_gatter_show').style.display = 'block';	
+        document.getElementById('cnot_gatter_show').style.display = 'block';	
 	}	
 fadeIn(info_section);
 });
 close.addEventListener('click', function(){
    fadeOut(tutorial_show);
    gatter_ind = 4;
+   resetGatter(interactive_gatter);
+   interact_combination = interact_combination_original.map(sub => sub.slice());
    cleanTutorial();
 });
 next_tutorial.addEventListener('click', function(e){
@@ -826,6 +895,8 @@ level_redone.addEventListener('click', function(e){
 to_level.addEventListener('click', function(e){
   fadeOut(tutorial_show);
   gatter_ind = 4;
+  interact_combination = interact_combination_original.map(sub => sub.slice());
+  resetGatter(interactive_gatter);
   checkTutorial();
   cleanTutorial();  
 });
@@ -854,21 +925,25 @@ for(let i=0; i<3; i++){
       setTimeout('applyVerticalGatter()', 1000);      
 }
 function resetGatter(id){
-
-if(gatter_ind==2){
-
-	return;
-}
-
-if(gatter_in_action){
-	gatter_in_action = null;
-	document.getElementById(id).classList.remove('active');
+	if(id == null){ 
 	return false;
-}
-	if(interactive_gatter){
-       document.getElementById(id).classList.remove('active');
-	   interactive_gatter = null;
-  }
+	}
+	else if(gatter_ind==2){
+
+		return false;
+	}
+
+	else if(gatter_in_action){
+		gatter_in_action = null;
+		document.getElementById(id).classList.remove('active');
+		return false;
+	}
+	else if(interactive_gatter){
+		if(document.getElementById(id)){
+	       document.getElementById(id).classList.remove('active');
+		   interactive_gatter = null;
+		  }
+	  }
 }
 
 // Swipes
@@ -928,21 +1003,20 @@ function touchMove(e) {
 
 
 function touchEnd(e) {
+if(moves>=available_moves){
+return false;
+}
 if(!gatter_in_action){
 let images =createImageGatter();
 let empty_message = '<p class="tutorial_text centered_text error_gatter">Du hast das Gatter nicht gewählt!</p><div class ="images_block">' + images + '</div>' ;	
 notifyPlayer(empty_message);
 return false;
 }
-
-
 if(gatter_in_action == 'swap_gatter' || 
-	 	gatter_in_action == 'snot_gatter'){
+	 	gatter_in_action == 'cnot_gatter'){
 return false;
 }
-if(moves>=available_moves){
-return false;
-}
+
 let quibits_containers = document.querySelectorAll('.quibits_container');
 let width_quibits = quibits_containers[0].getBoundingClientRect();
 let set_quibit = width_quibits.width*1.5;
@@ -982,113 +1056,112 @@ notifyPlayer(errors_committed);
 }
 
 function checkUpUserAction(id, direction, startX, 
-	newX, startY, newY, size, prefix ){
-	
-if(direction== 'right'){
-let right_set= 	['0 0', '1 0', '2 0'];
-	if(prefix){
-      for(let i=0; i< right_set.length; i++){
-      	right_set[i] = right_set[i]+prefix;
-      }
-	}
-	if(Math.abs(newY-startY) >80){
-		wrongChoice();
-     return false;
-	}
-	if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){    
-		if(Math.abs(newX-startX) <size){
+	newX, startY, newY, size, prefix ){	
+	if(direction== 'right'){
+	let right_set= 	['0 0', '1 0', '2 0'];
+		if(prefix){
+	      for(let i=0; i< right_set.length; i++){
+	      	right_set[i] = right_set[i]+prefix;
+	      }
+		}
+		if(Math.abs(newY-startY) >80){
 			wrongChoice();
-         return false;
-	    }
-	     else{
-	    	return true;
-	    }
-	}
-	else{		
-		return false;
-	}
-}
-
-else if(direction== 'left'){
-let left_set= 	['0 2', '1 2', '2 2'];
-	if(prefix){
-      for(let i=0; i< left_set.length; i++){
-      	left_set[i] = left_set[i]+prefix;
-      }
+	     return false;
+		}
+		if(id==right_set[0] || id==right_set[1] || id==right_set[2] ){    
+			if(Math.abs(newX-startX) <size){
+				wrongChoice();
+	         return false;
+		    }
+		     else{
+		    	return true;
+		    }
+		}
+		else{		
+			return false;
+		}
 	}
 
-   if(Math.abs(newY-startY) >80){
-   	wrongChoice();
-     return false;
+	else if(direction== 'left'){
+	let left_set= 	['0 2', '1 2', '2 2'];
+		if(prefix){
+	      for(let i=0; i< left_set.length; i++){
+	      	left_set[i] = left_set[i]+prefix;
+	      }
+		}
+
+	   if(Math.abs(newY-startY) >80){
+	   	wrongChoice();
+	     return false;
+		}
+	if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
+			if(Math.abs(newX-startX) < size){
+				wrongChoice();
+	         return false;
+		    }
+		    else{
+		    	return true;
+		    }
+		}
+		else{
+			return false;
+		}
 	}
-if(id== left_set[0] || id== left_set[1] || id== left_set[2]){
-		if(Math.abs(newX-startX) < size){
+
+
+	else if(direction== 'up'){
+		let up_set= ['2 0', '2 1', '2 2'];
+		if(prefix){
+	      for(let i=0; i< up_set.length; i++){
+	      	up_set[i] = up_set[i]+prefix;
+	      }
+		}
+		if(Math.abs(newX-startX) >80){
 			wrongChoice();
-         return false;
-	    }
-	    else{
-	    	return true;
-	    }
-	}
-	else{
-		return false;
-	}
-}
-
-
-else if(direction== 'up'){
-	let up_set= ['2 0', '2 1', '2 2'];
-	if(prefix){
-      for(let i=0; i< up_set.length; i++){
-      	up_set[i] = up_set[i]+prefix;
-      }
-	}
-	if(Math.abs(newX-startX) >80){
-		wrongChoice();
-     return false;
-	}
-	
-	if(id== up_set[0] || id== up_set[1] || id== up_set[2]){
-		if(Math.abs(newY-startY) < size){
-			wrongChoice();
-         return false;
-	    }
-	     else{
-	    	return true;
-	    }
-	}
-	else{	
-		return false;
-	}
-}
-
-   else if(direction== 'down'){
-   		let down_set= ['0 0', '0 1', '0 2'];
-	if(prefix){
-      for(let i=0; i< down_set.length; i++){
-      	down_set[i] = down_set[i]+prefix;
-      }
-	}
-
-	 if(Math.abs(newX-startX) >80){
-	 	wrongChoice();
-     return false;
-	}
-	
-	if(id== down_set[0] || id== down_set[1] || id== down_set[2]){
+	     return false;
+		}
 		
-		if(Math.abs(newY-startY) < size){
-			wrongChoice();
-         return false;
-	    }
-	     else{
-	    	return true;
-	    }
+		if(id== up_set[0] || id== up_set[1] || id== up_set[2]){
+			if(Math.abs(newY-startY) < size){
+				wrongChoice();
+	         return false;
+		    }
+		     else{
+		    	return true;
+		    }
+		}
+		else{	
+			return false;
+		}
 	}
-	else{	
-		return false;
-	}
-  }
+
+	   else if(direction== 'down'){
+	   		let down_set= ['0 0', '0 1', '0 2'];
+		if(prefix){
+	      for(let i=0; i< down_set.length; i++){
+	      	down_set[i] = down_set[i]+prefix;
+	      }
+		}
+
+		 if(Math.abs(newX-startX) >80){
+		 	wrongChoice();
+	     return false;
+		}
+		
+		if(id== down_set[0] || id== down_set[1] || id== down_set[2]){
+			
+			if(Math.abs(newY-startY) < size){
+				wrongChoice();
+	         return false;
+		    }
+		     else{
+		    	return true;
+		    }
+		}
+		else{	
+			return false;
+		}
+	  }
 }
 let quibits_trainfirst_container = document.querySelectorAll('.interactive');
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
@@ -1174,7 +1247,8 @@ function touchMove_interactive(e) {
   e.preventDefault();
 };
 
-let interact_combination = [[2,3,3], [1,2,2], [1,3,3]];
+let interact_combination_original = [[2,3,3], [1,2,2], [1,3,3]];
+let interact_combination = interact_combination_original.map(sub => sub.slice());
 let interactive_gatter;
 let prefix;
 
@@ -1187,7 +1261,7 @@ if(!interactive_gatter){
 }
 
 if(interactive_gatter == 'swap_gatter_interactive' || 
-	 	interactive_gatter == 'snot_gatter_interactive '){
+	 	interactive_gatter == 'cnot_gatter_interactive '){
 return false;
 }
 let quibits_containers = document.querySelectorAll('.interactive');
@@ -1266,6 +1340,10 @@ function applyInteractMechanics(part, position, interactive_gatter, prefix){
 		else if(interact_combination[part][i] ==3){
 		  interact_combination[part][i] = 1; 	
 		} 
+		else if(interact_combination[part][i] ==2){
+			interact_combination[part][i] =3;
+        }   
+
 	  }
       break;
     	case 'h_gatter2_interactive':   
@@ -1276,6 +1354,11 @@ function applyInteractMechanics(part, position, interactive_gatter, prefix){
 		else if(interact_combination[part][i] ==3){		
 		  interact_combination[part][i] = 2; 		  
 		}
+
+		else if(interact_combination[part][i] ==2){
+			interact_combination[part][i] =3;
+        }   
+
        }
 
 	  }
@@ -1303,7 +1386,12 @@ else{
 			}
 			else if(interact_combination[i][part] ==3){
 			interact_combination[i][part] =1;
-            }  
+            } 
+
+            else if(interact_combination[i][part] ==2){
+			interact_combination[i][part] =3;
+		   } 
+
          }
       break;
     	case 'h_gatter2_interactive':  
@@ -1314,6 +1402,9 @@ else{
 			else if(interact_combination[i][part] ==3){
 			interact_combination[i][part] =2;
             } 
+            else if(interact_combination[i][part] ==2){
+			interact_combination[i][part] =3;
+		     }
 
            }
         }
@@ -1340,7 +1431,7 @@ let table = document.createElement('table'),
 		for(let j = 0; j < 3; ++j){
 			let cell = document.createElement('td');
 			let class_quibit = 'quibits'+ prefix; 
-			cell.classList.add(class_quibit, 'interactive');		
+			cell.classList.add(class_quibit, 'interactive');	
 
 			cell.setAttribute('id' , i + " " + j+ prefix);			
 			
@@ -1362,6 +1453,7 @@ let table = document.createElement('table'),
 
 	container.innerHTML = '';
 	container.appendChild(table);
+	inter_combination = [];
 
 quibits_trainfirst_container = document.querySelectorAll('.interactive');
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
@@ -1369,12 +1461,27 @@ quibits_trainfirst_container.addEventListener('touchstart', touchStart_interacti
 quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
 quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 });
+
+
+
+	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+
+	});
+
+
+
 }
 function interactiveGatter(id){
 	let gatter = document.getElementById(id);
+	 // console.log(gatter);
+
+	 // console.log(gatter.classList);
 	if(gatter.classList.contains('active')){
-		gatter.classList.remove('active');
-		interactive_gatter = null;
+		resetGatter(interactive_gatter);
+		// gatter.classList.remove('active');
+		// interactive_gatter = null;
+
 	}
 	else{
 	  gatter.classList.add('active');
@@ -1383,13 +1490,15 @@ function interactiveGatter(id){
 
 	quibits_trainfirst_container = document.querySelectorAll('.interactive');
 	 if(interactive_gatter == 'swap_gatter_interactive' || 
-	 	interactive_gatter == 'snot_gatter_interactive '){	 	
-	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+	 	interactive_gatter == 'cnot_gatter_interactive '){	
 
-	});
+	// quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	// quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+
+	// });
 
 	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+   
 	quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
 	quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
 	quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);
@@ -1412,6 +1521,10 @@ if(!interactive_gatter){
 	notifyPlayer(empty_message);
 	return false;	
 }
+
+if(interactive_gatter== 'cnot_gatter_interactive' || 
+	interactive_gatter== 'swap_gatter_interactive'){
+
   let el = event.target || window.event;   
 	if(el.classList.contains('quants')){
 	  el = event.target.parentNode;
@@ -1430,49 +1543,82 @@ if(!interactive_gatter){
 	
 		}
 		else{
-		  el.classList.add('active');		
+
+			
+		  el.classList.add('active');	
+
+        console.log(el);
 		let index_in_collection = el.getAttribute('id');	
 		inter_combination.unshift(index_in_collection);
 		let active_line = el.childNodes[0].id.charAt(0);
 		let active_quilbit = el.childNodes[0].id.charAt(2);
-
-       if(inter_combination.length==2){	
-
+         console.log(inter_combination);	
+       if(inter_combination.length==2){
        prefix =  getPrefix();
+		       if(interactive_gatter == 'swap_gatter_interactive'){
+				    let active_line1_swap = inter_combination[0].charAt(0);
+					let active_column1_swap = inter_combination[0].charAt(2);
+					let active_line2_swap = inter_combination[1].charAt(0);
+					let active_column2_swap = inter_combination[1].charAt(2);
+					let first_swap = interact_combination[active_line1_swap][active_column1_swap];
+					let second_swap  = interact_combination[active_line2_swap][active_column2_swap];
+					interact_combination[active_line1_swap][active_column1_swap] = second_swap;
+					interact_combination[active_line2_swap][active_column2_swap] = first_swap;
+				    inter_combination = [];   
+		       }
+		      else if(interactive_gatter== 'cnot_gatter_interactive')	{
+		      		
+					let active_line1_cnot = inter_combination[0].charAt(0);
+					let active_column1_cnot = inter_combination[0].charAt(2);
+					let active_line2_cnot = inter_combination[1].charAt(0);
+					let active_column2_cnot = inter_combination[1].charAt(2);
+					let control = interact_combination[active_line2_cnot][active_column2_cnot];					
+					let classquibits = '.quibits' + prefix;
+					alert(control);
 
-       if(interactive_gatter == 'swap_gatter_interactive'){
+					alert(interact_combination[active_line1_cnot][active_column1_cnot]);
+					let quants = document.querySelectorAll(classquibits);
+						if(control == 3){
+							let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+						    notifyPlayer(wrong_message);
+						    cleanQuants(quants);
+						    inter_combination = [];   			    
+							return false;
+						}
+						else if(interact_combination[active_line1_cnot][active_column1_cnot] == 3){
+							let wrong_message = '<p class="tutorial_text centered_text"> 22222Falsche Wahl! Versuch es nochmal!!</P>';
+				            notifyPlayer(wrong_message);
+				            cleanQuants(quants);
+				            inter_combination = [];   
+							return false;
+						}
+						else{
+							interact_combination[active_line1_cnot][active_column1_cnot] = control;
 
-       		let active_line1_swap = inter_combination[0].charAt(0);
-	let active_column1_swap = inter_combination[0].charAt(2);
-	let active_line2_swap = inter_combination[1].charAt(0);
-	let active_column2_swap = inter_combination[1].charAt(2);
-	let first_swap = interact_combination[active_line1_swap][active_column1_swap];
-	let second_swap  = interact_combination[active_line2_swap][active_column2_swap];
-	interact_combination[active_line1_swap][active_column1_swap] = second_swap;
-	interact_combination[active_line2_swap][active_column2_swap] = first_swap;
-     inter_combination = [];   
+						  }
+		            }
+		            alert("Строю");
+		            setTimeout('showInteractResult(prefix)', 1000);
+		            setTimeout('resetGatter(interactive_gatter)', 1200);
+		            tutorialNotifications();	
+					 
 
+				 }
+           }
+    
+  }
+else{
+	// alert("Забил " + interactive_gatter);
+	return false;
+}
 
-       }
-      else if(interactive_gatter== 'snot_gatter_interactive ')	{
-	let active_line1_snot = inter_combination[0].charAt(0);
-	let active_column1_snot = inter_combination[0].charAt(2);
-	let active_line2_snot = inter_combination[1].charAt(0);
-	let active_column2_snot = inter_combination[1].charAt(2);
-	let control = interact_combination[active_line2_snot][active_column2_snot];
-	interact_combination[active_line1_snot][active_column1_snot] = control; 
-	inter_combination = [];
-       }
-       setTimeout('showInteractResult(prefix)', 1000);
-       setTimeout('resetGatter(interactive_gatter)', 1200);
-
-		}
-       }
-tutorialNotifications();
 }
 
 function tutorialNotifications(){
 let encourage_message; 
+
+// alert(interactive_gatter + ' 1');
+
 if(current_tutor_index == 1){
   if(attempt[current_tutor_index][0] == 0){
     attempt[current_tutor_index][0] = 1;
@@ -1491,6 +1637,7 @@ if(current_tutor_index == 1){
      
      interactive_gatter = 'h_gatter2_interactive';
      gatter_ind =2;
+     return false;
     	      
 	}
    else if(attempt[current_tutor_index][1] == 0){
@@ -1501,17 +1648,29 @@ if(current_tutor_index == 1){
       }, 1500);     
       attempt[current_tutor_index][1] =1;
       to_level.classList.remove('disabled');
-      document.getElementById('h_gatter2_interactive').classList.remove('active');    
+      // document.getElementById('h_gatter2_interactive').classList.remove('active');    
      document.getElementById('h_gatter1_interactive').classList.remove('game_gatter_clicked',  'disabled');
      document.getElementById('h_gatter1_interactive').classList.add('game_gatter_interactive');
-     reset_mode = true;
+     	gatter_ind = 4;
+     resetGatter(interactive_gatter);
+     // reset_mode = true;
    	 return false;
    }
-   else{
-   	gatter_ind = 4;
-   }
+ //   else{
+ //   	gatter_ind = 4;
+ //   	alert("re3333333333333");
+ //   	resetGatter(interactive_gatter);
+ //   	return false;
+ // }
+}
+// alert(interactive_gatter + ' 2');
+   //  else{
+   // 	gatter_ind = 4;
+   // 	alert("reserererre");
+   // 	resetGatter(interactive_gatter);
+   // 	return false;
+   // }
 
- }
 
 if(attempt[current_tutor_index] == 0){
 	if(current_tutor_index == 2){
@@ -1531,6 +1690,8 @@ if(attempt[current_tutor_index] == 0){
 
    to_level.classList.remove('disabled');
   }
+
+  // alert(interactive_gatter + ' 3');
 }
 
 
@@ -1556,7 +1717,7 @@ let set;
       set = gatters_images[0]+ gatters_images[4];
 	}
 	else if(level ==7){
-      set = gatters_images[0]+ gatters_images[2] + gatters_images[4];
+      set = gatters_images[0]+ gatters_images[1]+ gatters_images[2] + gatters_images[4];
 	}
 	return set; 
 }
@@ -1576,24 +1737,53 @@ let set;
       set = gatters_images[3];
 	}
 	else if(level >4){
-       gatters_images[4];
+       set = gatters_images[4];
 	}
-
 	return set; 
 }
 
 
 document.addEventListener('click', function(e) {
-if (e.target.closest('.game_gatter_interactive')) {
-	let game_gatters = document.querySelectorAll('.game_gatter_interactive');
-	if(game_gatters.length>1){
-		for(let a=0; a<game_gatters.length; a++){
-			game_gatters[a].classList.remove('active');
-		}
-	}
-     let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
-      interactiveGatter(id);
- 
- }
-});
+	// console.log(e.target);
+	if (e.target.classList.contains('game_gatter_interactive')) {
+	   let id = e.target.getAttribute('id');
+	   // console.log(id);
+	   interactiveGatter(id);
 
+	}
+	else if(e.target.classList.contains('in_inter')) {
+	   let id = e.target.parentNode.getAttribute('id');
+	   // console.log(id);
+	   interactiveGatter(id);
+
+	}
+
+
+	
+
+
+// console.log(e.target);
+
+// if (e.target.closest('.game_gatter_interactive')) {
+// 	let game_gatters = document.querySelectorAll('.game_gatter_interactive');
+// 	if(game_gatters.length>1){
+// 		for(let a=0; a<game_gatters.length; a++){
+// 			game_gatters[a].classList.remove('active');
+// 		}
+// 	}
+//       let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
+//       interactiveGatter(id);
+//    }
+ });
+
+
+
+
+
+quibits_trainfirst_container = document.querySelectorAll('.interactive');
+	
+
+	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
+
+	});
