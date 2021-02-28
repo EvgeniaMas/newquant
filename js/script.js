@@ -68,8 +68,7 @@ function notifyPlayer(message){
 }
 
 
-function cleanQuants(quants){
-	
+function cleanQuants(quants){	
 for(let i=0; i<quants.length; i++){
 	quants[i].classList.remove('active');
  }
@@ -95,31 +94,16 @@ el.style.display = 'none';
 }
 function fadeIn(el) { 
 if(el == tutorial_show){
-
-
-
-
-
-		
+	
   if(tutorial[0].classList.contains('tutorial_block2')) {
      document.getElementById('h_gatter1_interactive').classList.add('active');
   }  
    else if(tutorial[0].classList.contains('tutorial_block3') || 
   	tutorial[0].classList.contains('tutorial_block4')  ){
-	    resetGatter(interactive_gatter);
-// alert(interactive_gatter);
-	    quibits_trainfirst_container = document.querySelectorAll('.interactive'); 
- //        quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	// 	quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
-	// 	quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
-	// 	quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);	
-	// });
 
-	// 	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	// 	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
-	// });
-		
-
+   	interactive_gatter = null;
+    gatter_ind = 4;
+	    setEventListeneroInteractive();	
   }
 }
 
@@ -235,9 +219,6 @@ solution.appendChild(table_solution);
 }
 // create a game field
 function buildGame(array){
-
-// console.log(array);
-
 	let table = document.createElement('table'),
 		tbody = document.createElement('tbody');	
 		table.id = 'game_field';				
@@ -523,14 +504,14 @@ function cnotGatter(){
 	let control = working_sequence[active_line2][active_column2];
 	let quants = document.querySelectorAll('.quibits_container');
 	if(control == 3){
-		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch noch einmal!</P>';
 	    notifyPlayer(wrong_message);
 	    cleanQuants(quants);
 	    combination = [];
 		return false;
 	}
 	else if(working_sequence[active_line1][active_column1] == 3){
-		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+		let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch noch einmal!</P>';
 	    notifyPlayer(wrong_message);
 	    cleanQuants(quants);
 	    combination = [];
@@ -642,6 +623,8 @@ function checkUpSequence(){
       if(level==8){
       	const finish = document.getElementById('finish'); 
         finish.style.display = 'block';
+        information.style.display = 'none';
+        back_move.style.display = 'none';
           return; 
 
       }
@@ -660,7 +643,7 @@ function checkUpSequence(){
          buildGame(sequence);
          resetGatter(gatter_in_action);
 
-    }, 1450);
+    }, 1300);
 
     	if(level ==2 || level ==4 || level==6){  
 
@@ -674,7 +657,7 @@ function checkUpSequence(){
     	let win = '<p class="tutorial_title_text small ">Glückwunsch</p><p class="tutorial_text centered_text">Glückwunsch! Du hast dieses Level erfolgreich gelöst!</p>';    	
                setTimeout(function() {
          notifyPlayer(win);
-         }, 1500);
+         }, 1200);
 
         modal_buttons.style.display = 'none';
     	pass_modal.style.display = 'inline_block';  
@@ -779,6 +762,8 @@ window.onload = function() {
 	solution = document.getElementById('solution');
 	createPattern(level);
 	buildGame(sequence);
+	quibits_trainfirst_container = document.querySelectorAll('.interactive');
+	setEventListeneroInteractive();
 	turnOnGatter();
 }
 information.addEventListener('click', function(){
@@ -1164,11 +1149,11 @@ function checkUpUserAction(id, direction, startX,
 	  }
 }
 let quibits_trainfirst_container = document.querySelectorAll('.interactive');
-quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
-quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
-quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
-});
+// quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+// quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
+// quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
+// quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
+// });
 
 // Swipes interact
 let inter_combination = [];
@@ -1217,7 +1202,6 @@ let initial_interctive;
 };
  
 function touchMove_interactive(e) {
-
   if (initialX_interactive === null) {
     return;
   }
@@ -1455,6 +1439,12 @@ let table = document.createElement('table'),
 	container.appendChild(table);
 	inter_combination = [];
 
+    setEventListeneroInteractive();
+}
+
+
+function setEventListeneroInteractive(){
+if(!interactive_gatter){
 quibits_trainfirst_container = document.querySelectorAll('.interactive');
 quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
@@ -1462,56 +1452,40 @@ quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive)
 quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
 });
 
-
-
+}
+else if(interactive_gatter == 'swap_gatter_interactive' ||
+ interactive_gatter == 'cnot_gatter_interactive'){
+	    quibits_trainfirst_container = document.querySelectorAll('.interactive'); 
+        quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+		quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
+		quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
+		quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);	
+	});
 	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
 	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
 
-	});
-
-
-
+	});	
 }
+else if(interactive_gatter == 'x_gatter_interactive' ||
+ interactive_gatter == 'h_gatter1_interactive' || interactive_gatter == 'h_gatter2_interactive'){
+ quibits_trainfirst_container = document.querySelectorAll('.interactive');
+	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
+	quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
+	quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
+	quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
+	 });	
+  }
+}
+
 function interactiveGatter(id){
 	let gatter = document.getElementById(id);
-	 // console.log(gatter);
-
-	 // console.log(gatter.classList);
 	if(gatter.classList.contains('active')){
 		resetGatter(interactive_gatter);
-		// gatter.classList.remove('active');
-		// interactive_gatter = null;
-
 	}
 	else{
 	  gatter.classList.add('active');
 	  interactive_gatter =  gatter.getAttribute('id');
 	 }
-
-	quibits_trainfirst_container = document.querySelectorAll('.interactive');
-	 if(interactive_gatter == 'swap_gatter_interactive' || 
-	 	interactive_gatter == 'cnot_gatter_interactive '){	
-
-	// quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	// quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
-
-	// });
-
-	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-   
-	quibits_trainfirst_container.removeEventListener('touchstart', touchStart_interactive);
-	quibits_trainfirst_container.removeEventListener('touchmove',touchMove_interactive);
-	quibits_trainfirst_container.removeEventListener('touchend', touchEnd_interactive);
-		
-	});
-	 }
-	 else{
-	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	quibits_trainfirst_container.addEventListener('touchstart', touchStart_interactive);
-	quibits_trainfirst_container.addEventListener('touchmove',touchMove_interactive);
-	quibits_trainfirst_container.addEventListener('touchend', touchEnd_interactive);
-	});
- }
 }
 
 function setClickedQuibits(){
@@ -1542,17 +1516,12 @@ if(interactive_gatter== 'cnot_gatter_interactive' ||
 		  }    
 	
 		}
-		else{
-
-			
-		  el.classList.add('active');	
-
-        console.log(el);
+		else{			
+		el.classList.add('active');	
 		let index_in_collection = el.getAttribute('id');	
 		inter_combination.unshift(index_in_collection);
 		let active_line = el.childNodes[0].id.charAt(0);
 		let active_quilbit = el.childNodes[0].id.charAt(2);
-         console.log(inter_combination);	
        if(inter_combination.length==2){
        prefix =  getPrefix();
 		       if(interactive_gatter == 'swap_gatter_interactive'){
@@ -1566,27 +1535,23 @@ if(interactive_gatter== 'cnot_gatter_interactive' ||
 					interact_combination[active_line2_swap][active_column2_swap] = first_swap;
 				    inter_combination = [];   
 		       }
-		      else if(interactive_gatter== 'cnot_gatter_interactive')	{
-		      		
+		      else if(interactive_gatter== 'cnot_gatter_interactive')	{		      		
 					let active_line1_cnot = inter_combination[0].charAt(0);
 					let active_column1_cnot = inter_combination[0].charAt(2);
 					let active_line2_cnot = inter_combination[1].charAt(0);
 					let active_column2_cnot = inter_combination[1].charAt(2);
 					let control = interact_combination[active_line2_cnot][active_column2_cnot];					
-					let classquibits = '.quibits' + prefix;
-					alert(control);
-
-					alert(interact_combination[active_line1_cnot][active_column1_cnot]);
+					let classquibits = '.quibits' + prefix;					
 					let quants = document.querySelectorAll(classquibits);
 						if(control == 3){
-							let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch es nochmal!!</P>';
+							let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch noch einmal!</P>';
 						    notifyPlayer(wrong_message);
 						    cleanQuants(quants);
 						    inter_combination = [];   			    
 							return false;
 						}
 						else if(interact_combination[active_line1_cnot][active_column1_cnot] == 3){
-							let wrong_message = '<p class="tutorial_text centered_text"> 22222Falsche Wahl! Versuch es nochmal!!</P>';
+							let wrong_message = '<p class="tutorial_text centered_text"> Falsche Wahl! Versuch noch einmal!</P>';
 				            notifyPlayer(wrong_message);
 				            cleanQuants(quants);
 				            inter_combination = [];   
@@ -1597,8 +1562,7 @@ if(interactive_gatter== 'cnot_gatter_interactive' ||
 
 						  }
 		            }
-		            alert("Строю");
-		            setTimeout('showInteractResult(prefix)', 1000);
+			            setTimeout('showInteractResult(prefix)', 1000);
 		            setTimeout('resetGatter(interactive_gatter)', 1200);
 		            tutorialNotifications();	
 					 
@@ -1608,7 +1572,6 @@ if(interactive_gatter== 'cnot_gatter_interactive' ||
     
   }
 else{
-	// alert("Забил " + interactive_gatter);
 	return false;
 }
 
@@ -1616,9 +1579,6 @@ else{
 
 function tutorialNotifications(){
 let encourage_message; 
-
-// alert(interactive_gatter + ' 1');
-
 if(current_tutor_index == 1){
   if(attempt[current_tutor_index][0] == 0){
     attempt[current_tutor_index][0] = 1;
@@ -1636,7 +1596,8 @@ if(current_tutor_index == 1){
      document.getElementById('h_gatter2_interactive').classList.add('game_gatter_interactive', 'active');
      
      interactive_gatter = 'h_gatter2_interactive';
-     gatter_ind =2;
+     setEventListeneroInteractive();
+     gatter_ind = 2;
      return false;
     	      
 	}
@@ -1647,30 +1608,14 @@ if(current_tutor_index == 1){
          notifyPlayer(mess); 
       }, 1500);     
       attempt[current_tutor_index][1] =1;
-      to_level.classList.remove('disabled');
-      // document.getElementById('h_gatter2_interactive').classList.remove('active');    
+      to_level.classList.remove('disabled');  
      document.getElementById('h_gatter1_interactive').classList.remove('game_gatter_clicked',  'disabled');
      document.getElementById('h_gatter1_interactive').classList.add('game_gatter_interactive');
      	gatter_ind = 4;
      resetGatter(interactive_gatter);
-     // reset_mode = true;
    	 return false;
    }
- //   else{
- //   	gatter_ind = 4;
- //   	alert("re3333333333333");
- //   	resetGatter(interactive_gatter);
- //   	return false;
- // }
 }
-// alert(interactive_gatter + ' 2');
-   //  else{
-   // 	gatter_ind = 4;
-   // 	alert("reserererre");
-   // 	resetGatter(interactive_gatter);
-   // 	return false;
-   // }
-
 
 if(attempt[current_tutor_index] == 0){
 	if(current_tutor_index == 2){
@@ -1690,14 +1635,11 @@ if(attempt[current_tutor_index] == 0){
 
    to_level.classList.remove('disabled');
   }
-
-  // alert(interactive_gatter + ' 3');
 }
 
 
 function createImageGatter(){
 let set;
-
 	if(level ==0 || level ==1){
       set = gatters_images[0];
 	}
@@ -1721,8 +1663,6 @@ let set;
 	}
 	return set; 
 }
-
-
 function createImageGatterInteractive(){
 let set;
 
@@ -1741,49 +1681,14 @@ let set;
 	}
 	return set; 
 }
-
-
 document.addEventListener('click', function(e) {
-	// console.log(e.target);
 	if (e.target.classList.contains('game_gatter_interactive')) {
 	   let id = e.target.getAttribute('id');
-	   // console.log(id);
 	   interactiveGatter(id);
-
 	}
 	else if(e.target.classList.contains('in_inter')) {
 	   let id = e.target.parentNode.getAttribute('id');
-	   // console.log(id);
 	   interactiveGatter(id);
-
 	}
-
-
-	
-
-
-// console.log(e.target);
-
-// if (e.target.closest('.game_gatter_interactive')) {
-// 	let game_gatters = document.querySelectorAll('.game_gatter_interactive');
-// 	if(game_gatters.length>1){
-// 		for(let a=0; a<game_gatters.length; a++){
-// 			game_gatters[a].classList.remove('active');
-// 		}
-// 	}
-//       let id = e.target.closest('.game_gatter_interactive').getAttribute('id');
-//       interactiveGatter(id);
-//    }
- });
-
-
-
-
-
-quibits_trainfirst_container = document.querySelectorAll('.interactive');
-	
-
-	quibits_trainfirst_container.forEach(quibits_trainfirst_container => {
-	quibits_trainfirst_container.addEventListener('click', setClickedQuibits);
-
-	});
+	setEventListeneroInteractive();
+});
